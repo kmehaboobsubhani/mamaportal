@@ -1,0 +1,14 @@
+.center {
+  display: flex;
+  height: 300px;
+  justify-content: center;
+}
+
+
+
+.centermid {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}

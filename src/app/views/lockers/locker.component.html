@@ -1,0 +1,117 @@
+<c-row>
+   <c-col col="12">
+   
+      <div class="input-group" style="float: left;">
+        <!-- <a (click)="navigateToNewMac()" class="btn btn" style="background-color: #c7eccf; color:blue; border-radius: 0px;font-size: 14px;font-weight: 900;">New Locker</a>  -->
+         <div class="input-group-prepend">
+           <span class="input-group-text"><i class="cil-search"></i></span>
+         </div>
+         <input cInput
+ 
+           [(ngModel)]="filterQuery"
+           placeholder="Search here"
+         />
+         </div>
+       <br>
+         <div style="float: right;">
+     <pagination [boundaryLinks]="true" [totalItems]="totalItems" [(ngModel)]="currentPage" class="pagination-sm"
+                 [maxSize]="6"
+                 previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+     </pagination>
+   </div>
+    </c-col>
+    </c-row>
+<div *ngFor="let rowLockers of lockers; let i = index" class="fade-in">
+<c-row>
+  
+  <c-col  *ngFor="let item of rowLockers.lockers; let j = index" sm="6" md="4">
+    <c-card>
+      <c-card-header>
+        <a (click)="navigateToLock(item.machineId)" class="btn btn" style="background-color: #BCDA6E; border-radius: 0px;font-size: 12px;font-weight: 900;">{{item.machineId}}</a> 
+        <c-card-header-actions style="height: 21px;" >
+          <c-switch color="info" size="sm" checked labelOn="On" labelOff="Off"></c-switch>
+        </c-card-header-actions>
+      </c-card-header>
+      <c-card-body>
+        <div class="iq-card iq-card-block iq-card-stretch iq-card-height">
+          <div class="iq-card-body ">
+             
+             <div class="d-flex justify-content-between align-items-center">
+                <div class="value-box">
+                  
+                   
+                  
+                   <span class="bg-danger dots"></span>
+                   <p class="mb-0 text-secondary line-height"><span style="color: #000;font-size: 10px;"><i class="fa fa-map-marker" aria-hidden="true"></i> {{item.address}}</span>  </p>
+                   <p class="mb-0 text-secondary line-height"><span style="color: #000;font-size: 10px;"><i class="fa fa-level-up" aria-hidden="true"></i> {{getLevel(item.level)}}</span>  </p>
+                   <p class="mb-0 text-secondary line-height"><span style="color: #000;font-size: 10px;"><i class="fa fa-thermometer-empty" aria-hidden="true"></i>  43°C</span>  </p>
+                   
+                   <p class="mb-0 text-secondary line-height"><span style="color: #000;font-size: 10px;">  </span>  </p>
+
+                   
+                </div>
+                <div class="iq-iconbox iq-bg-danger">
+                  <img src="../../../assets/images/custom/drinks.png" width="50px" height="50px">
+                </div>
+                
+             </div>
+                <div class="mt-2">
+                   
+                   <a class="icon"><i class="fa fa-wifi" aria-hidden="true" [ngClass]="isConfigEnabled(item.machineId,'WifiModule') ? 'config-enable' : 'config-disable'"
+                      title="Wifi Module"></i></a>
+                   <a class="icon"><i class="fa fa-map-marker" aria-hidden="true"  [ngClass]="isConfigEnabled(item.machineId,'GSM_GPRS_GPS_Module') ? 'config-enable' : 'config-disable'"
+                     title="GSM + GPRS + GPS Module kit"></i></a>
+                   <a class="icon"><i class="fa fa-mobile" aria-hidden="true" [ngClass]="isConfigEnabled(item.machineId,'RFID') ? 'config-enable' : 'config-disable'"
+                     title="RFID"></i></a>
+                  
+                   <a class="icon"><i class="fa fa-bluetooth" aria-hidden="true" [ngClass]="isConfigEnabled(item.machineId,'BluetoothModule') ? 'config-enable' : 'config-disable'"
+                     title="Bluetooth Module"></i></a>
+                   <a class="icon"><i class="fa fa-angle-double-right" aria-hidden="true" [ngClass]="isConfigEnabled(item.machineId,'UPI') ? 'config-enable' : 'config-disable'"
+                     title="UPI"></i></a>
+                  
+                   <a class="icon"><i class="fa fa-credit-card" [ngClass]="isConfigEnabled(item.machineId,'CardReader') ? 'config-enable' : 'config-disable'"
+                     title="Card reader"></i></a>
+                   <a class="icon"><i class="fa fa-circle-o" aria-hidden="true" [ngClass]="isConfigEnabled(item.machineId,'Coin') ? 'config-enable' : 'config-disable'"
+                     title="Coin"></i></a>
+                  
+                   <a class="icon"><i class="fa fa-money" aria-hidden="true" [ngClass]="isConfigEnabled(item.machineId,'Cash') ? 'config-enable' : 'config-disable'"
+                     title="Cash"></i></a>
+                   <p class="mb-0 text-secondary line-height" style="max-width: 174px;    margin-top: 0px;"><span style="color: #000;font-size: 10px;"> Last Transaction:1-02-2021 09:30PM</span>  </p>
+                   <!--stars-->
+                   <p class="mb-0 text-secondary line-height" style="max-width: 174px;    margin-top: 0px;"><span>
+                      <i class="fa fa-star" aria-hidden="true" style="color: rgb(231, 171, 59);font-size: 10px;"></i></span>
+                      <i class="fa fa-star" aria-hidden="true" style="color: rgb(231, 171, 59);font-size: 10px;"></i>
+                      <i class="fa fa-star" aria-hidden="true" style="color: rgb(231, 171, 59);font-size: 10px;"></i>
+                      <i class="fa fa-star-half-o" aria-hidden="true" style="color: rgb(231, 171, 59);font-size: 10px;"></i>
+                      
+                      <i class="fa fa-star-o" aria-hidden="true" style="color: rgb(231, 171, 59);font-size: 10px;"></i> 
+                      <i class="fa fa-commenting-o" aria-hidden="true" style="color: #282828;font-size: 10px;"> 20</i> 
+                      <i class="fa fa-money" aria-hidden="true" style="color: #282828;font-size: 10px;"> 200</i>
+                      
+                      <i class="fa fa" aria-hidden="true" style="color: #282828;font-size: 10px;"><span style="font-size: 11px;">₹</span> 2000</i>
+                   
+                   </p>
+                   <!--stars end-->
+                   <div class="edits" style="    margin-top: -45px;
+                   position: absolute;
+                   right: -45px;">
+                      <div class="dropdown-container" tabindex="-1">
+                         <div class="three-dots"></div>
+                         <div class="dropdown">
+                           <!-- <a  (click)="navigateToLock(item.machineId)"  style="text-align:left; color: #000;cursor: pointer;"><div>&nbsp;&nbsp;<i class="fa fa-eye" aria-hidden="true"></i> Springs</div></a> -->
+                           <a  (click)="navigateToTransactions(item.machineId)"  style="text-align:left; color: #000;cursor: pointer;"><div>&nbsp;&nbsp;<i class="fa fa-eye" aria-hidden="true"></i> Transactions</div></a>
+                           
+                         </div>
+                       </div> 
+                   </div>
+                   
+             </div>
+             
+          </div>
+       </div>
+      </c-card-body>
+    </c-card>
+  </c-col>
+    
+</c-row>
+</div>

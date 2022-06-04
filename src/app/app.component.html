@@ -1,0 +1,10 @@
+<!-- <app-vending></app-vending> -->
+<!-- <app-finance></app-finance> -->
+<!-- <app-login></app-login> -->
+
+<p *ngIf="base64Img" [style.background-color]="templateClr" style="line-height: 2; font-size: 40px; font-style: italic;font-weight: bold;">
+    <img [src]="'data:image/jpg;base64,'+base64Img">
+    {{data}}
+  </p>
+  
+<router-outlet ></router-outlet>

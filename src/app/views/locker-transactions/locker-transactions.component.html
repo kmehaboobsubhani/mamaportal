@@ -1,0 +1,77 @@
+<c-row>
+   <c-col lg="12">
+     <c-card>
+       <c-card-header>
+         Locker Transactions
+         <button (click)="refreshPage()"><i class="fa fa-refresh"></i></button>
+       </c-card-header>
+       <c-card-body>
+         <table
+           class="table table-responsive-sm table-bordered table-striped table-sm"
+         >
+           <colgroup>
+             <col class="column-1" />
+             <col class="column-2" />
+             <col class="column-3" />
+             <col class="column-4" />
+             <col class="column-5" />
+           </colgroup>
+           <thead>
+             <tr>
+               <th scope="col">Ordere Id</th>
+               
+               <th>Payment Id</th>
+               <!-- <th>Childlock Id</th> -->
+               <th>Locker Name</th>
+               <th>initial Booked Hrs</th>
+               <th>Renew Booked Hrs</th>
+               
+               <th>order Date & Time</th>
+               <th>Order Type</th>
+               <th>Phone Number</th>
+               <th>txnMode</th>
+               <th>Order Status</th>
+               <th>LOS</th>
+               <th>Operation</th>
+               <!-- <th>Passcode</th> -->
+               <th>Amount</th>
+               <th>Balence</th>
+             </tr>
+           </thead>
+           <tbody>
+             <tr *ngFor="let tx of returnedArray">
+               <th scope="row">{{ tx.orderId }}</th>
+              
+               <td>{{ tx.paymentOrderId }}</td>
+               <!-- <td>{{ tx.childlockId }}</td> -->
+               <td>{{ tx.childlockname }}</td>
+               <td>{{ tx.initialbookedHours }}</td>
+               <td>{{ tx.renewbookedHours }}</td>
+               <td>{{ tx.orderDateTime }}</td>
+               <td>{{ tx.orderType }}</td>
+               <td>{{ tx.phoneNumber }}</td>
+               <td>{{ tx.txnMode }}</td>
+               <td>{{ tx.orderStatus }}</td>
+               <td>{{ tx.los }}</td>
+               <td>{{ tx.opp }}</td>
+               <!-- <td>{{ tx.passcode }}</td> -->
+               <th>{{ tx.amount }}</th>
+               <th>{{ tx.balance }}</th>
+               
+             </tr>
+           </tbody>
+         </table>
+         <nav>
+           <pagination
+             [totalItems]="totalRows"
+             (pageChanged)="pageChanged($event)"
+             [itemsPerPage]="15"
+             [(ngModel)]="currentPage"
+             [maxSize]="4"
+             [rotate]="true"
+           ></pagination>
+         </nav>
+       </c-card-body>
+     </c-card>
+   </c-col>
+ </c-row>

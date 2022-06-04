@@ -1,0 +1,122 @@
+<div class="container-fluid">
+  <div class="card">
+    <div class="card-header">
+      <div class="float-left">
+        <h3 class="text-info">Stock Management</h3>
+      </div>
+      <div class="float-right">
+        <a class="btn btn-success" [routerLink]="['/stocks/addStocks']"><i class="fa fa-plus"></i> Add Stock</a>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive-sm">
+        <div class="float-right">
+          <span class="input-group-text"><i class="cil-search"></i></span>
+        </div>
+        <div class="float-right">
+          <input cInput [(ngModel)]="filterQuery" placeholder="Search by name" />
+        </div>
+
+        <table class="table table-striped table-hover table-responsive-lg" [mfData]="data | dataFilter: filterQuery"
+        #mf="mfDataTable" [mfRowsOnPage]="10">
+        <thead>
+          <tr>
+            <th style="width: 10%;">
+              <mfDefaultSorter by="springName" #sortspringName>
+                SpringName
+                <span
+                  *ngIf="sortspringName.isSortedByMeAsc"
+                  class="cil-arrow-top"
+                  aria-hidden="true"
+                ></span>
+                <span
+                  *ngIf="sortspringName.isSortedByMeDesc"
+                  class="cil-arrow-bottom"
+                  aria-hidden="true"
+                ></span>
+              </mfDefaultSorter>
+            </th>            
+            <th style="width: 10%;">
+              <mfDefaultSorter by="availability" #sortavailability>
+                Available Quantity
+                <span
+                  *ngIf="sortavailability.isSortedByMeAsc"
+                  class="cil-arrow-top"
+                  aria-hidden="true"
+                ></span>
+                <span
+                  *ngIf="sortavailability.isSortedByMeDesc"
+                  class="cil-arrow-bottom"
+                  aria-hidden="true"
+                ></span>
+              </mfDefaultSorter>
+            </th>
+            <th style="width: 10%;">
+              <mfDefaultSorter by="name" #sortname>
+                Item Name
+                <span
+                  *ngIf="sortname.isSortedByMeAsc"
+                  class="cil-arrow-top"
+                  aria-hidden="true"
+                ></span>
+                <span
+                  *ngIf="sortname.isSortedByMeDesc"
+                  class="cil-arrow-bottom"
+                  aria-hidden="true"
+                ></span>
+              </mfDefaultSorter>
+            </th>
+            <th style="width: 10%;">
+              <mfDefaultSorter by="totalSlots" #sorttotalSlots>
+                TotalSlots
+                <span
+                  *ngIf="sorttotalSlots.isSortedByMeAsc"
+                  class="cil-arrow-top"
+                  aria-hidden="true"
+                ></span>
+                <span
+                  *ngIf="sorttotalSlots.isSortedByMeDesc"
+                  class="cil-arrow-bottom"
+                  aria-hidden="true"
+                ></span>
+              </mfDefaultSorter>
+            </th>
+            
+            <th style="width: 15%;">
+              <mfDefaultSorter by="alterNativeSpringNo" #sortalterNativeSpringNo>
+                AlterNative Spring Name
+                <span
+                  *ngIf="sortalterNativeSpringNo.isSortedByMeAsc"
+                  class="cil-arrow-top"
+                  aria-hidden="true"
+                ></span>
+                <span
+                  *ngIf="sortalterNativeSpringNo.isSortedByMeDesc"
+                  class="cil-arrow-bottom"
+                  aria-hidden="true"
+                ></span>
+              </mfDefaultSorter>
+            </th>
+           
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let tx of mf.data">                              
+                <td>{{tx.springName}}</td> 
+                <td>{{tx.availability}}</td>
+                <td>{{tx.name}}</td>
+                <td>{{tx.totalSlots}}</td>
+                <td>{{tx.alterNativeSpringNo}}</td>
+                <td>{{tx.active}}</td>                 
+          </tr>
+        </tbody>
+        <div class="card-footer">
+          <div class="float-right">
+              <mfBootstrapPaginator [rowsOnPageSet]="[5, 10, 15]"></mfBootstrapPaginator>
+        </div>
+        </div>
+      </table>
+      </div>
+    </div>
+  </div>
+</div>

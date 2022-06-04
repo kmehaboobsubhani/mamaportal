@@ -1,0 +1,82 @@
+<c-row>
+   <c-col col="12">
+   
+      <div class="input-group" style="float: left;">
+         <div class="input-group-prepend">
+           <span class="input-group-text"><i class="cil-search"></i></span>
+         </div>
+         <input cInput
+ 
+           [(ngModel)]="filterQuery"
+           placeholder="Search here"
+         />
+         </div>
+       <br>
+         <div style="float: right;">
+     <pagination [boundaryLinks]="true" [totalItems]="totalItems" [(ngModel)]="currentPage" class="pagination-sm"
+                 [maxSize]="6"
+                 previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+     </pagination>
+   </div>
+    </c-col>
+    </c-row>
+    <c-row>
+    <div *ngFor="let item of locks; let i = index" class="fade-in">
+
+  
+  <c-col >
+    <c-card>
+      <c-card-header>
+        <a href="#" class="btn btn" [ngStyle]="{'background-color': item.available == 1 ? '#BCDA6E' : 'red'}" style="border-radius: 0px;font-size: 12px;font-weight: 900;color: #000;">{{item.childLockname}}</a> 
+        <c-card-header-actions style="height: 21px;" >
+          <c-switch color="info" size="sm" checked labelOn="On" labelOff="Off"></c-switch>
+        </c-card-header-actions>
+      </c-card-header>
+      <c-card-body>
+         <div class="iq-card-body p-0" style="    background-color: #fff;
+         border-radius: 0px;
+         box-shadow: 1px 3px 19px -3px;">
+        
+            <div class="p-1 bg-primary mb-3 rounded position-relative" style="border-radius: 0px !important;">
+              
+               <div class="d-flex align-items-center justify-content-between">
+                  <div class="icon iq-icon-box" data-wow-delay="0.2s" style=" width: 35px;
+                  height: 35px;
+                  margin-top: -26px;
+                  margin-left: 1px;
+                  line-height: 68px;
+                  
+              ">
+                     <img [src]="'data:image/jpg;base64,'+item.icon" width="100%" style="border-radius: 50%;">
+                  </div>
+                  <div class="ml-2">
+                     <a (click)="springPop(item.sNo, item.springName, item.availability, item.itemFromStockId, item.name);infoModal.show();" class="d-flex align-items-center mr-4">
+                        <span class="bg-white   mr-2"></span>
+                        <ul>
+                           <li> <p class="text-white mb-0" style="font-size: 12px; font-weight: 700;text-align: right;">Locker #{{item.childLockname}}</p></li>
+                        </ul>
+                     </a>
+                    
+                  </div>
+               </div>
+            </div>
+            <div class="d-flex align-items-center pb-3">
+               <div class="col-lg-12">
+                  <div class="ml-2">
+                     <h5 class="mb-1" style="font-size: 12px; font-weight: 800;">Locker Charge : {{item.sellPrice}} Rs</h5>
+                     <span class="h6 text-dark mb-0 counter d-inline-block w-100" style="font-weight: 800;">{{item.description}}</span>
+                     <p class="mb-0 text-secondary line-height"><span style="color: #a09e9e;font-size: 9px;"> Last Transaction On:</span>  </p>
+                     <p class="mb-0 text-secondary line-height"><span style="color: #000;font-size: 10px;"> 10-02-2021 09:30PM </span>  </p>
+                  </div>
+               </div>
+               </div>
+               
+            </div>      </c-card-body>
+    </c-card>
+  </c-col>
+    
+
+ 
+</div>
+
+</c-row>

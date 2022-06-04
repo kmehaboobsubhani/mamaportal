@@ -1,0 +1,76 @@
+<c-container   >
+  <c-row class="justify-content-center" style="height: 2000;">
+    <div class="center">
+      <c-card-group>
+        
+        <c-card >
+          <c-card-body style="height: 1000; width: 400px;"  >
+            <form>
+              
+              <div>
+                <img class="centermid" src="assets/img/brand/mama.png" style="height: 150px;" >
+                  
+              <h1  class="centermid" style="color:#35b0e4; font-weight:1000; text-align: center; ">Merchant Portal</h1> 
+            
+            </div>            
+              <!-- <h1 style="color:#35b0e4; font-weight:780;">Merchant Portal</h1> -->
+              <p  style="color:#30383b; ">Sign In to your account</p>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <c-icon name="cil-user"></c-icon>
+                  </span>
+                </div>
+                <input cInput
+                  placeholder="Username"
+                  autocomplete="username"
+                  [(ngModel)]="login.userId"
+                  [ngModelOptions]="{standalone: true}"
+                  required
+                />
+              </div>
+              <div class="input-group mb-4">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <c-icon name="cil-lock-locked"></c-icon>
+                  </span>
+                </div>
+                <input cInput
+                  type="password"
+                  placeholder="Password"
+                  autocomplete="current-password"
+                  [(ngModel)]="login.password"
+                  [ngModelOptions]="{standalone: true}"
+                  required
+                />
+              </div>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <c-icon name="cil-user"></c-icon>
+                  </span>
+                </div>
+                <input cInput
+                  placeholder="Merchant Id"
+                  autocomplete="merchantId"
+                  [(ngModel)]="login.merchantId"
+                  [ngModelOptions]="{standalone: true}"
+                  required
+                />
+              </div>
+              <c-row>
+                <c-col col="6">
+                  <button cButton color="primary" class="px-4" (click) = "onLogin()">Login</button>
+                </c-col>
+                <c-col col="6" class="text-right">
+                  <button cButton color="link" class="px-0">Forgot password?</button>
+                </c-col>
+              </c-row>
+            </form>
+          </c-card-body>
+        </c-card>
+      </c-card-group>
+    </div>
+  </c-row>
+</c-container>
+

@@ -1,0 +1,240 @@
+<div class="fade-in">
+  <c-card>
+    <c-card-body>
+      <c-row>
+        <c-col sm="6">
+          <h1 class="card-title mb-0">Machine Status</h1>
+        <div class="chart-wrapper">
+          <canvas cNoZoneBaseChart class="chart"
+          [data]="statusMachineChart.arbarChartData" 
+          [labels]="statusMachineChart.arbarChartLabels" 
+          [chartType]="statusMachineChart.arbarChartType"
+          [options]="statusMachineChart.arbarChartOptions"
+          [plugins]="statusMachineChart.arbarChartPlugins"
+          [legend]="statusMachineChart.arbarChartLegend"
+          [colors]="statusMachineChart.pieColor"
+          [plugins]="statusMachineChart.pieChartPlugins"> 
+        </canvas>
+      </div>
+      </c-col>
+         <c-col sm="6">
+          <h1 class="card-title mb-0">Sold Items</h1>
+        <div class="chart-wrapper">
+          <canvas cNoZoneBaseChart class="chart"
+          [data]="soldItemsChart.doughnutChartData" 
+          [labels]="soldItemsChart.doughnutChartLabels" 
+          [chartType]="soldItemsChart.doughnutChartType"
+          [options]="soldItemsChart.doughnutChartOptions"
+          [plugins]="soldItemsChart.doughnutChartPlugins"
+          [legend]="soldItemsChart.doughnutChartLegend"
+          [colors]="soldItemsChart.pieColor">
+        </canvas>
+      </div>
+        </c-col>
+      </c-row>
+    </c-card-body>
+    <c-card-footer>
+      <c-row class="text-center">
+        <c-col sm="2" [md]="true" class="mb-sm-2 mb-0">
+          <div>{{active}} Online ({{onlinepercentage | number: '1.2-2'}}%)</div>
+          <c-progress size="xs" class="mt-2">
+            <c-progress-bar color="success" [value]=onlinepercentage></c-progress-bar>
+          </c-progress>
+        </c-col>
+        <c-col sm="2" [md]="true" class="mb-sm-2 mb-0">
+          <div>{{inActive}} Offline ({{offlinepercentage | number: '1.2-2'}}%)</div>
+          <c-progress size="xs" class="mt-2">
+            <c-progress-bar color="danger" [value]=offlinepercentage></c-progress-bar>
+          </c-progress>
+        </c-col>
+        <c-col sm="0.5" [md]="true" class="mb-sm-2 mb-0">
+          
+        </c-col>
+        <c-col sm="1.5" [md]="true" class="mb-sm-2 mb-0">
+          <div>{{bhujiaSev}} BhujiaSev ({{bhujiaSevPercentage | number : '1.2-2'}}%)</div>
+          <c-progress size="xs" class="mt-2">
+            <c-progress-bar color="danger" [value]=bhujiaSevPercentage></c-progress-bar>
+          </c-progress>
+        </c-col>
+        <c-col sm="1.5" [md]="true" class="mb-sm-2 mb-0">
+          <div>{{pepsi}} Pepsi ({{pepsiPercentage | number : '1.2-2'}}%)</div>
+          <c-progress size="xs" class="mt-2">
+            <c-progress-bar color="success" [value]=pepsiPercentage></c-progress-bar>
+          </c-progress>
+        </c-col>
+        <c-col sm="1.5" [md]="true" class="mb-sm-2 mb-0">
+          <div>{{chips}} Chips ({{chipsPercentage | number : '1.2-2'}}%)</div>
+          <c-progress size="xs" class="mt-2">
+            <c-progress-bar color="warning" [value]=chipsPercentage></c-progress-bar>
+          </c-progress>
+        </c-col>
+        <c-col sm="1.5" [md]="true" class="mb-sm-2 mb-0">
+          <div>{{sanitaryNapkinSmall}} Sanitary Napkin Small ({{sanitaryNapkinSmallPercentage | number : '1.2-2'}}%)</div>
+          <c-progress size="xs" class="mt-2">
+            <c-progress-bar color="info" [value]=sanitaryNapkinSmallPercentage></c-progress-bar>
+            <!-- <c-progress-bar color="secondary" [value]=sanitaryNapkinSmallPercentage></c-progress-bar> -->
+          </c-progress>
+        </c-col>
+      </c-row>
+    </c-card-footer>
+  </c-card>
+ 
+  <c-card>
+    <c-card-body>
+      <c-row>
+         <c-col sm="4">
+          <h1 class="card-title mb-0">Transaction Status</h1>
+        </c-col> 
+        <c-col sm="8" class="d-none d-md-block">
+          <form >
+            <c-row>
+              
+            <c-form-group cCol md="4">
+              <label for="fname">FromDate : </label>
+              <input cInput
+                     id="date-input" 
+                     type="date" 
+                     name="date-input" 
+                     placeholder="fromDate"
+                     autocomplete="given-name"
+                     [(ngModel)]="fromDate"
+                     required
+                     [autofocus]="true"
+                     [ngClass]="{ 'is-invalid': (submitted || f.fromDate.touched) && f.fromDate.invalid, 'is-valid': f.toDate.touched && f.fromDate.valid  }" />
+              <div *ngIf="submitted && f['fromDate'].invalid" class="invalid-feedback">
+                <div *ngIf="f['fromDate'].errors.required">FromDate is required</div>
+              </div>
+            </c-form-group>
+
+            <c-form-group cCol md="4">
+              <label for="fname">ToDate : </label>
+              <input cInput
+                     id="date-input" 
+                     type="date" 
+                     name="date-input" 
+                     placeholder="toDate"
+                     autocomplete="toDate"
+                     [(ngModel)]="toDate"
+                     required
+                     [autofocus]="true"
+                     [ngClass]="{ 'is-invalid': (submitted || f.toDate.touched) && f.toDate.invalid, 'is-valid': f.toDate.touched && f.toDate.valid  }" />
+              <div *ngIf="submitted && f['toDate'].invalid" class="invalid-feedback">
+                <div *ngIf="f['toDate'].errors.required">ToDate is required</div>
+              </div>
+            </c-form-group>
+            
+            <c-form-group cCol md="4">
+            <button cButton color="primary" class="mfe-1" type="submit" (click)="onAddTransactionDate(simpleForm.value)">Submit</button>
+            </c-form-group>
+          </c-row>
+        </form>
+        </c-col>
+      </c-row>
+      <c-row>
+         <c-col sm="7">
+        <div *ngIf="ispieShown" class="chart-wrapper">
+          <canvas  cNoZoneBaseChart class="chart"
+          [data]="transactionChart.arbarChartData" 
+          [labels]="transactionChart.arbarChartLabels" 
+          [chartType]="transactionChart.arbarChartType"
+          [options]="transactionChart.arbarChartOptions"
+          [plugins]="transactionChart.arbarChartPlugins"
+          [legend]="transactionChart.arbarChartLegend"
+          [colors]="transactionChart.pieColor"
+          [plugins]="transactionChart.pieChartPlugins">
+        </canvas>
+      </div>
+      <div *ngIf="isShown" id="divshow" class="row container-fluid" style="font-size: 33px;
+             text-align: center;margin: 30px">Data not Exist for the Selected Date Range</div>
+        </c-col>
+         <c-col sm="5">
+           <div style="margin: 20px;">
+            <h1 >Date Range Selected </h1>
+            <h2 >fromDate : {{transactionFromDate}}</h2>
+            <h2 >toDate : {{transactionTodate}} </h2>
+            <h2 for="fname">Success : {{completed}} </h2>
+            <h2 for="fname">Failed  : {{dispenseFailed}} </h2>
+          </div> 
+        </c-col> 
+      </c-row>
+    </c-card-body>
+    <c-card-footer>
+      <c-row class="text-center">
+        <c-col sm="12" [md]="true" class="mb-sm-2 mb-0">
+          <div>{{completed}} Success ({{completedPercentage | number : '1.2-2'}}%)</div>
+          <c-progress size="xs" class="mt-2">
+            <c-progress-bar color="success" [value]=completedPercentage></c-progress-bar>
+          </c-progress>
+        </c-col>
+        <c-col sm="12" [md]="true" class="mb-sm-2 mb-0">
+          <div>{{dispenseFailed}} Failed ({{failedPercentage | number : '1.2-2'}}%)</div>
+          <c-progress size="xs" class="mt-2">
+            <c-progress-bar color="danger" [value]=failedPercentage></c-progress-bar>
+          </c-progress>
+        </c-col>
+      </c-row>
+    </c-card-footer>
+  </c-card>
+
+
+  <c-card>
+    <c-card-body>
+      <c-row>
+        <c-col sm="4">
+          <h1 class="card-title mb-0">Sales Detail</h1>
+        </c-col> 
+        <c-col sm="8" class="d-none d-md-block">
+        <form [formGroup]="contactForm" (ngSubmit)="submit()">
+          <c-row> 
+            <c-form-group cCol md="4">
+            <select cSelect formControlName="country">
+              <option [ngValue]="null" disabled>Select Month Or Year</option>
+              <option *ngFor="let country of countries" [ngValue]="country.value">{{country.name}}</option>
+            </select>
+             </c-form-group>
+            <c-form-group cCol md="4">
+              <button cButton color="primary" class="mfe-1" type="submit" (click)="onAddRevenueDate(contactForm.value)">Submit</button>
+            </c-form-group>
+          </c-row>
+          </form>
+        </c-col>
+      </c-row>
+      <c-row>
+        <c-col sm="8">
+          <!-- <h4 class="card-title mb-0">Sales Detail</h4> -->
+        <div *ngIf="isPieHide" class="chart-wrapper">
+          <canvas cNoZoneBaseChart class="chart"
+          [data]="salesDetailsChart.arbarChartData" 
+          [labels]="salesDetailsChart.arbarChartLabels" 
+          [chartType]="salesDetailsChart.arbarChartType"
+          [options]="salesDetailsChart.arbarChartOptions"
+          [plugins]="salesDetailsChart.arbarChartPlugins"
+          [legend]="salesDetailsChart.arbarChartLegend"
+          [colors]="salesDetailsChart.pieColor"
+          [plugins]="salesDetailsChart.pieChartPlugins">
+        </canvas>
+      </div>
+      <div *ngIf="isHide" id="divhide" class="row container-fluid" style="font-size: 33px;
+      text-align: center;margin: 30px">Data not Exist for the Selected Item</div>
+      </c-col>
+      <c-col sm="4">
+        <div style="margin: 20px;">
+          <h1 >{{monthOrYear}} Data Selected </h1>
+          <!-- <h2 >fromDate :{{revenueFromDate}}</h2>
+          <h2 >toDate :{{revenueTodate}} </h2>
+          <h2 >Total Revenue : {{totalRevenue}} ₹ </h2> -->
+        </div>
+      </c-col>
+      </c-row>
+    </c-card-body>
+    <c-card-footer>
+      <c-row class="text-center">
+        <c-col sm="12" [md]="true" class="mb-sm-2 mb-0">
+          <!-- <div class="text-muted">Total Revenue</div> -->
+          <div>{{totalRevenue}} Total Revenue ({{revenuePercentage | number : '1.2-2'}}%)</div>
+         
+        </c-col>
+      </c-row>
+    </c-card-footer>
+  </c-card>         
+</div>

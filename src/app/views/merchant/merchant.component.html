@@ -1,0 +1,604 @@
+<div class="fade-in">
+  <c-row>
+    <c-col>
+      <c-card>
+        <c-card-body>
+          <c-tabset  fill="fill" variant="pills" boxed="true" [activeTab]="'0'">
+            <c-tablist>
+              <c-tab *ngFor="let tab of tabs2">
+                <c-icon [name]="tab.icon" class="pb-1"></c-icon>
+                {{tab.header}}
+              </c-tab>
+            </c-tablist>
+            <c-tab-content>
+              <c-tab-pane *ngFor="let tab of tabs2; let i = index">
+
+                <ng-container *ngIf="i===0">
+                  <c-col md="12" >
+                    <form [formGroup]="simpleForm" novalidate (ngSubmit)="onSubmit()" class="needs-validation">
+                      <c-row>
+                      <c-form-group cCol md="4">
+                        <h6 class="col-form-label" for="merchantName">Merchant Name :</h6>
+                        <input cInput
+                               id="merchantName"
+                               formControlName="merchantName"
+                               placeholder="Merchant name"
+                               autocomplete="given-name"
+                               required
+                               [autofocus]="true"
+                               [ngClass]="{ 'is-invalid': (submitted || f.merchantName.touched) && f.merchantName.invalid, 'is-valid': f.loginId.touched && f.merchantName.valid  }" />
+                        <div *ngIf="submitted && f['merchantName'].invalid" class="invalid-feedback">
+                          <div *ngIf="f['merchantName'].errors.required">Merchant Short Name is required</div>
+                        </div>
+                      </c-form-group>
+                      <c-form-group cCol md="4">
+                        <h6 class="col-form-label" for="loginId">loginId :</h6>
+                        <input cInput
+                               id="loginId"
+                               formControlName="loginId"
+                               placeholder="loginId"
+                               autocomplete="loginId"
+                               required
+                               [ngClass]="{ 'is-invalid': (submitted || f.loginId.touched) && f.loginId.errors, 'is-valid': f.merchantId.touched && !f.loginId.errors }" />
+                          <div *ngIf="submitted && f['loginId'].errors" class="invalid-feedback">
+                          <div *ngIf="f['loginId'].errors.required">LoginId is required</div>
+                          <div *ngIf="f['loginId'].errors.minlength">{{formErrors.loginId.minLength}}</div>
+                          <div *ngIf="f['loginId'].errors.pattern">{{formErrors.loginId.pattern}}</div>
+                        </div>
+                      </c-form-group>
+                      <c-form-group cCol md="4">
+                        <h6 class="col-form-label" for="file-input">company Reg Certificate Attachment :</h6>
+                        <c-col md="9">
+                          <input cInput type="file" id="file-input" accept="pdf" name="file-input">
+                        </c-col>
+                      </c-form-group>
+                      <!-- <c-form-group cCol md="4">
+                        <h6 class="col-form-label" for="merchantId">merchantId :</h6>
+                        <input cInput
+                               id="merchantId"
+                               formControlName="merchantId"
+                               placeholder="merchantId"
+                               autocomplete="family-name"
+                               required
+                               [ngClass]="{ 'is-invalid':  (submitted || f.merchantId.touched) && f.merchantId.invalid, 'is-valid': f.panNo.touched && f.merchantId.valid }" />
+                        <div *ngIf="submitted && f['merchantId'].invalid" class="invalid-feedback">
+                          <div *ngIf="f['merchantId'].errors.required">MerchantId is required</div>
+                        </div>
+                      </c-form-group> -->
+                    </c-row>
+                    <c-row>
+                      <c-form-group cCol md="3">
+                        <h6 class="col-form-label" for="panNo">Pan Number :</h6>
+                        <input cInput
+                               id="panNo"
+                               formControlName="panNo"
+                               placeholder="Pan Number"
+                               autocomplete="given-name"
+                               required
+                               [autofocus]="true"
+                               [ngClass]="{ 'is-invalid': (submitted || f.panNo.touched) && f.panNo.invalid, 'is-valid': f.gstNo.touched && f.panNo.valid  }" />
+                        <div *ngIf="submitted && f['panNo'].invalid" class="invalid-feedback">
+                          <div *ngIf="f['panNo'].errors.required">Pan Number is required</div>
+                        </div>
+                      </c-form-group>
+
+                      <c-form-group cCol md="3">
+                        <h6 class="col-form-label" for="file-input">Pan File Attachment :</h6>
+                        <c-col md="9">
+                          <input cInput type="file" id="file-input" accept="pdf" name="file-input">
+                        </c-col>
+                      </c-form-group>
+
+                      <c-form-group cCol md="3">
+                        <h6 class="col-form-label" for="gstNo">Gst Number :</h6>
+                        <input cInput
+                               id="gstNo"
+                               formControlName="gstNo"
+                               placeholder="Gst Number"
+                               autocomplete="given-name"
+                               required
+                               [autofocus]="true"
+                               [ngClass]="{ 'is-invalid': (submitted || f.gstNo.touched) && f.gstNo.invalid, 'is-valid': f.billingPlan.touched && f.gstNo.valid  }" />
+                        <div *ngIf="submitted && f['gstNo'].invalid" class="invalid-feedback">
+                          <div *ngIf="f['gstNo'].errors.required">Gst Number is required</div>
+                        </div>
+                      </c-form-group>
+      
+                      <c-form-group cCol md="3">
+                        <h6 class="col-form-label" for="file-input">Gst File Attachment :</h6>
+                        <c-col md="9">
+                          <input cInput type="file" id="file-input" name="file-input">
+                        </c-col>
+                      </c-form-group>
+                    </c-row>
+                    <c-row>
+                      
+                      <c-form-group cCol md="4">
+                        <h6 class="col-form-label" for="billingPlan">Billing Plan :</h6>
+                               <select  cSelect name="billingPlan"
+                               id="billingPlan"
+                               formControlName="billingPlan"
+                               placeholder="Billing Plan"
+                               autocomplete="given-name"
+                               required
+                               [autofocus]="true"
+                               [ngClass]="{ 'is-invalid': (submitted || f.billingPlan.touched) && f.billingPlan.invalid, 'is-valid': f.phone.touched && f.billingPlan.valid  }"                              
+                               >
+                                <option value="1">Basic</option>
+                                <option value="2">Standard</option>
+                                <option value="3">Enterprise</option>
+                                <option value="3">custom</option>
+                              </select>
+                               <div *ngIf="submitted && f['billingPlan'].invalid" class="invalid-feedback">
+                          <div *ngIf="f['billingPlan'].errors.required">Billing Plan is required</div>
+                        </div>
+                      </c-form-group>
+
+                      <c-form-group cCol md="4">
+                        <h6 class="col-form-label" for="phone">Merchant Phone Number :</h6>
+                        <input cInput
+                              id="phone"
+                              formControlName="phone"
+                              placeholder="Phone Number"
+                              autocomplete="given-name"
+                              required
+                              [autofocus]="true"
+                              [ngClass]="{ 'is-invalid': (submitted || f.phone.touched) && f.phone.invalid, 'is-valid': f.address.touched && f.phone.valid  }" />
+                        <div *ngIf="submitted && f['phone'].invalid" class="invalid-feedback">
+                          <div *ngIf="f['phone'].errors.required">Merchant Phone Number is required</div>
+                        </div>
+                      </c-form-group>
+
+                       <c-form-group cCol md="4">
+                        <h6 class="col-form-label" for="phone">Merchant Email :</h6>
+                        <input cInput
+                               id="email"
+                               type="email"
+                               formControlName="email"
+                               placeholder="Email"
+                               autocomplete="email"
+                               required
+                               [ngClass]="{ 'is-invalid': (submitted || f.email.touched) && f.email.invalid, 'is-valid': f.email.touched && f.email.valid }" />
+                        <div *ngIf="submitted && f['email'].invalid" class="invalid-feedback">
+                          <div *ngIf="f['email'].errors.required">Merchant Email is required</div>
+                          <div *ngIf="f['email'].errors.email">{{formErrors.email.email}}</div>
+                        </div>
+                      </c-form-group> 
+
+                    </c-row>
+                    <c-row>
+                    <c-form-group cCol md="4">
+                      <h6 class="col-form-label" for="address">Address :</h6>
+                      <input cInput
+                            id="address"
+                            formControlName="address"
+                            placeholder="enter street name"
+                            autocomplete="given-name"
+                            required
+                            [autofocus]="true"
+                            [ngClass]="{ 'is-invalid': (submitted || f.address.touched) && f.address.invalid, 'is-valid': f.country.touched && f.address.valid  }" />
+                      <div *ngIf="submitted && f['address'].invalid" class="invalid-feedback">
+                        <div *ngIf="f['address'].errors.required">Address is required</div>
+                      </div>
+                    </c-form-group>
+
+                    <c-form-group cCol md="4">
+                      <h6 class="col-form-label" for="city">City :</h6>
+                      <input cInput
+                            id="city"
+                            formControlName="city"
+                            placeholder="city"
+                            autocomplete="given-name"
+                            required
+                            [autofocus]="true"
+                            [ngClass]="{ 'is-invalid': (submitted || f.city.touched) && f.city.invalid, 'is-valid': f.country.touched && f.city.valid  }" />
+                      <div *ngIf="submitted && f['city'].invalid" class="invalid-feedback">
+                        <div *ngIf="f['city'].errors.required">city is required</div>
+                      </div>
+                    </c-form-group>
+
+                    <c-form-group cCol md="4">
+                      <h6 class="col-form-label" for="state">State :</h6>
+                      <input cInput
+                            id="state"
+                            formControlName="state"
+                            placeholder="state"
+                            autocomplete="given-name"
+                            required
+                            [autofocus]="true"
+                            [ngClass]="{ 'is-invalid': (submitted || f.state.touched) && f.state.invalid, 'is-valid': f.country.touched && f.state.valid  }" />
+                      <div *ngIf="submitted && f['state'].invalid" class="invalid-feedback">
+                        <div *ngIf="f['state'].errors.required">state is required</div>
+                      </div>
+                    </c-form-group>
+
+                    </c-row>
+                    <c-row>
+                      <c-form-group cCol md="3">
+                        <h6 class="col-form-label" for="country">country :</h6>
+                        <input cInput
+                               id="country"
+                               formControlName="country"
+                               placeholder="country"
+                               autocomplete="given-name"
+                               required
+                               [autofocus]="true"
+                               [ngClass]="{ 'is-invalid': (submitted || f.country.touched) && f.country.invalid, 'is-valid': f.pincode.touched && f.country.valid  }" />
+                        <div *ngIf="submitted && f['country'].invalid" class="invalid-feedback">
+                          <div *ngIf="f['country'].errors.required">country is required</div>
+                        </div>
+                      </c-form-group>
+      
+                      <c-form-group cCol md="3">
+                        <h6 class="col-form-label" for="pincode">pincode :</h6>
+                        <input cInput
+                               id="pincode"
+                               formControlName="pincode"
+                               placeholder="pincode"
+                               autocomplete="given-name"
+                               required
+                               [autofocus]="true"
+                               [ngClass]="{ 'is-invalid': (submitted || f.pincode.touched) && f.pincode.invalid, 'is-valid': f.primaryContact.touched && f.pincode.valid  }" />
+                        <div *ngIf="submitted && f['pincode'].invalid" class="invalid-feedback">
+                          <div *ngIf="f['pincode'].errors.required">pincode is required</div>
+                        </div>
+                      </c-form-group>
+                    </c-row>
+                    <c-row>
+                      <c-form-group cCol md="4">
+                        <h6 class="col-form-label" for="primaryName">primaryName :</h6>
+                        <input cInput
+                              id="primaryName"
+                              formControlName="primaryName"
+                              placeholder="primaryName"
+                              autocomplete="given-name"
+                              required
+                              [autofocus]="true"
+                              [ngClass]="{ 'is-invalid': (submitted || f.primaryName.touched) && f.primaryName.invalid, 'is-valid': f.primaryPhone.touched && f.primaryName.valid  }" />
+                        <div *ngIf="submitted && f['primaryName'].invalid" class="invalid-feedback">
+                          <div *ngIf="f['primaryName'].errors.required">primaryName is required</div>
+                        </div>
+                      </c-form-group>
+
+
+                      <c-form-group cCol md="4">
+                        <h6 class="col-form-label" for="primaryPhone">primaryPhone :</h6>
+                        <input cInput
+                              id="primaryPhone"
+                              formControlName="primaryPhone"
+                              placeholder="primaryPhone"
+                              autocomplete="given-name"
+                              required
+                              [autofocus]="true"
+                              [ngClass]="{ 'is-invalid': (submitted || f.primaryPhone.touched) && f.primaryPhone.invalid, 'is-valid': f.primaryEmail.touched && f.primaryPhone.valid  }" />
+                        <div *ngIf="submitted && f['primaryPhone'].invalid" class="invalid-feedback">
+                          <div *ngIf="f['primaryPhone'].errors.required">primaryPhone is required</div>
+                        </div>
+                      </c-form-group>
+
+                      <c-form-group cCol md="4">
+                        <h6 class="col-form-label" for="primaryEmail">primaryEmail :</h6>
+                        <input cInput
+                              id="primaryEmail"
+                              formControlName="primaryEmail"
+                              placeholder="primaryEmail"
+                              autocomplete="given-name"
+                              required
+                              [autofocus]="true"
+                              [ngClass]="{ 'is-invalid': (submitted || f.primaryEmail.touched) && f.primaryEmail.invalid, 'is-valid': f.secondaryContact.touched && f.primaryEmail.valid  }" />
+                        <div *ngIf="submitted && f['primaryEmail'].invalid" class="invalid-feedback">
+                          <div *ngIf="f['primaryEmail'].errors.required">primaryEmail is required</div>
+                        </div>
+                      </c-form-group>
+
+                    </c-row>
+
+                    <c-row>
+                      <c-form-group cCol md="4">
+                        <h6 class="col-form-label" for="secondaryName">secondaryName:</h6>
+                        <input cInput
+                               id="secondaryName"
+                               formControlName="secondaryName"
+                               placeholder="secondaryName"
+                               autocomplete="given-name"
+                               required
+                               [autofocus]="true"
+                               [ngClass]="{ 'is-invalid': (submitted || f.secondaryName.touched) && f.secondaryName.invalid, 'is-valid': f.secondaryName.valid  }" />
+                        <div *ngIf="submitted && f['secondaryName'].invalid" class="invalid-feedback">
+                          <div *ngIf="f['secondaryName'].errors.required">secondaryName is required</div>
+                        </div>
+                      </c-form-group>
+
+                      <c-form-group cCol md="4">
+                        <h6 class="col-form-label" for="secondaryPhone">secondaryPhone:</h6>
+                        <input cInput
+                               id="secondaryPhone"
+                               formControlName="secondaryPhone"
+                               placeholder="secondaryPhone"
+                               autocomplete="given-name"
+                               required
+                               [autofocus]="true"
+                               [ngClass]="{ 'is-invalid': (submitted || f.secondaryPhone.touched) && f.secondaryPhone.invalid, 'is-valid': f.secondaryPhone.valid  }" />
+                        <div *ngIf="submitted && f['secondaryPhone'].invalid" class="invalid-feedback">
+                          <div *ngIf="f['secondaryPhone'].errors.required">secondaryPhone is required</div>
+                        </div>
+                      </c-form-group>
+
+                      <c-form-group cCol md="4">
+                        <h6 class="col-form-label" for="secondaryEmail">secondaryEmail:</h6>
+                        <input cInput
+                               id="secondaryEmail"
+                               formControlName="secondaryEmail"
+                               placeholder="secondaryEmail"
+                               autocomplete="given-name"
+                               required
+                               [autofocus]="true"
+                               [ngClass]="{ 'is-invalid': (submitted || f.secondaryEmail.touched) && f.secondaryEmail.invalid, 'is-valid': f.secondaryEmail.valid  }" />
+                        <div *ngIf="submitted && f['secondaryEmail'].invalid" class="invalid-feedback">
+                          <div *ngIf="f['secondaryEmail'].errors.required">secondaryEmail is required</div>
+                        </div>
+                      </c-form-group>
+
+                    </c-row>
+
+                      <c-form-group>
+                        <button cButton color="primary" class="mfe-1" type="submit" (click)="onSaveMerchant(simpleForm.value)" [disabled]="simpleForm.valid" [tabindex]="'0'" >Submit</button>
+                        <button cButton color="success" class="mfe-1" [disabled]="simpleForm.valid" (click)="onValidate()" [tabindex]="'0'">Validate</button>
+                        <button cButton color="danger" type="reset" (click)="onReset()" [tabindex]="'0'">Clear</button>
+                      </c-form-group>
+                    </form>
+                  </c-col>
+                  </ng-container>
+      
+                  <ng-container *ngIf="i===1">
+                    <c-col md="12" >
+                      <form [formGroup]="simpleForm" novalidate (ngSubmit)="onSubmit()" class="needs-validation">
+                        <c-row>                         
+                          <c-form-group cCol md="4">
+                            <h6 class="col-form-label" for="date">Date :</h6>
+                            <input cInput
+                                   id="date-input" 
+                                   type="date" 
+                                   name="date-input" 
+                                   placeholder="date"
+                                   formControlName="date"
+                                   autocomplete="given-name"
+                                   required
+                                   [autofocus]="true"
+                                   [ngClass]="{ 'is-invalid': (submitted || f.date.touched) && f.date.invalid, 'is-valid': f.loginId.touched && f.date.valid  }" />
+                            <div *ngIf="submitted && f['date'].invalid" class="invalid-feedback">
+                              <div *ngIf="f['date'].errors.required">date is required</div>
+                            </div>
+                          </c-form-group>
+                          <c-form-group cCol md="4">
+                            <h6 class="col-form-label" for="modeofPayment">mode of Payment :</h6>
+                                   <select  cSelect name="modeofPayment"
+                                   id="modeofPayment"
+                                   formControlName="modeofPayment"
+                                   placeholder="Billing Plan"
+                                   autocomplete="given-name"
+                                   required
+                                   [autofocus]="true"
+                                   [ngClass]="{ 'is-invalid': (submitted || f.modeofPayment.touched) && f.modeofPayment.invalid, 'is-valid': f.phone.touched && f.modeofPayment.valid  }"                              
+                                   >
+                                    <option value="1">Card</option>
+                                    <option value="2">OnlineTransfer</option>
+                                    <option value="3">Cash</option>
+                                  </select>
+                                   <div *ngIf="submitted && f['modeofPayment'].invalid" class="invalid-feedback">
+                              <div *ngIf="f['modeofPayment'].errors.required">ModeofPayment is required</div>
+                            </div>
+                          </c-form-group>
+                        <c-form-group cCol md="4">
+                          <h6 class="col-form-label" for="details">Details :</h6>
+                          <input cInput
+                                 id="details"
+                                 formControlName="details"
+                                 placeholder="details"
+                                 autocomplete="family-name"
+                                 required
+                                 [ngClass]="{ 'is-invalid':  (submitted || f.details.touched) && f.details.invalid, 'is-valid': f.panNo.touched && f.details.valid }" />
+                          <div *ngIf="submitted && f['details'].invalid" class="invalid-feedback">
+                            <div *ngIf="f['details'].errors.required">details is required</div>
+                          </div>
+                        </c-form-group>
+                      </c-row>
+                      <c-row>
+                        <c-form-group cCol md="4">
+                          <h6 class="col-form-label" for="amount">Amount :</h6>
+                          <input cInput
+                                 id="amount"
+                                 formControlName="amount"
+                                 placeholder="amount"
+                                 autocomplete="given-name"
+                                 required
+                                 [autofocus]="true"
+                                 [ngClass]="{ 'is-invalid': (submitted || f.amount.touched) && f.amount.invalid, 'is-valid': f.gstNo.touched && f.amount.valid  }" />
+                          <div *ngIf="submitted && f['amount'].invalid" class="invalid-feedback">
+                            <div *ngIf="f['amount'].errors.required">Billing Plan is required</div>
+                          </div>
+                        </c-form-group>                                
+                      </c-row>
+                        <c-form-group>
+                          <button cButton color="primary" class="mfe-1" type="submit" (click)="onSaveMerchant(simpleForm.value)" [disabled]="simpleForm.valid" [tabindex]="'0'" >Save</button>
+                          <button cButton color="success" class="mfe-1" [disabled]="simpleForm.valid" (click)="onValidate()" [tabindex]="'0'">Validate</button>
+                          <button cButton color="danger" type="reset" (click)="onReset()" [tabindex]="'0'">Clear</button>
+                        </c-form-group>
+                      </form>
+                    </c-col>
+                    </ng-container>
+      
+                    <ng-container *ngIf="i===2">
+                      <c-col md="12" >
+                        <form [formGroup]="simpleForm" novalidate (ngSubmit)="onSubmit()" class="needs-validation">
+                          <c-row>
+                            <c-form-group cCol md="4">
+                              <h6 class="col-form-label" for="paymentgateway">Payment Gateway :</h6>
+                                     <select  cSelect name="paymentgateway"
+                                     id="paymentgateway"
+                                     formControlName="paymentgateway"
+                                     placeholder="paymentgateway"
+                                     autocomplete="given-name"
+                                     required
+                                     [autofocus]="true"
+                                     [ngClass]="{ 'is-invalid': (submitted || f.paymentgateway.touched) && f.paymentgateway.invalid, 'is-valid': f.phone.touched && f.paymentgateway.valid  }">
+                                      <option value="1">Paytm</option>
+                                      <option value="2">RazorPay</option>
+                                      <option value="3">PayU</option>
+                                    </select>
+                                     <div *ngIf="submitted && f['paymentgateway'].invalid" class="invalid-feedback">
+                                <div *ngIf="f['paymentgateway'].errors.required">paymentgateway is required</div>
+                              </div>
+                            </c-form-group>
+                          <c-form-group cCol md="4">
+                            <h6 class="col-form-label" for="user">User :</h6>
+                            <input cInput
+                                   id="user"
+                                   formControlName="user"
+                                   placeholder="user"
+                                   autocomplete="user"
+                                   required
+                                   [ngClass]="{ 'is-invalid': (submitted || f.user.touched) && f.user.errors, 'is-valid': f.merchantId.touched && !f.user.errors }" />
+                              <div *ngIf="submitted && f['user'].errors" class="invalid-feedback">
+                              <div *ngIf="f['user'].errors.required">User is required</div>
+                            </div>
+                          </c-form-group>
+                          <c-form-group cCol md="4">
+                            <h6 class="col-form-label" for="password">Password :</h6>
+                            <input cInput
+                                  type="password"
+                                  placeholder="Password"
+                                  autocomplete="current-password"
+                                  required
+                                   id="password"
+                                   autocomplete="family-name"
+                                   required
+                                   [ngClass]="{ 'is-invalid':  (submitted || f.password.touched) && f.password.invalid, 'is-valid': f.panNo.touched && f.password.valid }" />
+                            <div *ngIf="submitted && f['password'].invalid" class="invalid-feedback">
+                              <div *ngIf="f['password'].errors.required">Password is required</div>
+                            </div>
+                          </c-form-group>
+                        </c-row>
+                        <c-row>
+                          <c-form-group cCol md="6">
+                            <h6 class="col-form-label" for="testapikey">TestApikey :</h6>
+                            <input cInput
+                                   id="testapikey"
+                                   formControlName="testapikey"
+                                   placeholder="testapikey"
+                                   autocomplete="given-name"
+                                   required
+                                   [autofocus]="true"
+                                   [ngClass]="{ 'is-invalid': (submitted || f.testapikey.touched) && f.testapikey.invalid, 'is-valid': f.gstNo.touched && f.testapikey.valid  }" />
+                            <div *ngIf="submitted && f['testapikey'].invalid" class="invalid-feedback">
+                              <div *ngIf="f['testapikey'].errors.required">TestApikey is required</div>
+                            </div>
+                          </c-form-group>
+                          <c-form-group cCol md="6">
+                            <h6 class="col-form-label" for="productionapikey">ProductionApikey :</h6>
+                            <input cInput
+                                   id="productionapikey"
+                                   formControlName="productionapikey"
+                                   placeholder="productionapikey"
+                                   autocomplete="given-name"
+                                   required
+                                   [autofocus]="true"
+                                   [ngClass]="{ 'is-invalid': (submitted || f.productionapikey.touched) && f.productionapikey.invalid, 'is-valid': f.billingPlan.touched && f.productionapikey.valid  }" />
+                            <div *ngIf="submitted && f['productionapikey'].invalid" class="invalid-feedback">
+                              <div *ngIf="f['productionapikey'].errors.required">productionapikey is required</div>
+                            </div>
+                          </c-form-group>
+          
+                        </c-row>
+                        <c-row>
+                          <c-form-group cCol md="4">
+                            <h6 class="col-form-label" for="callbackUrl">CallbackUrl :</h6>
+                            <input cInput
+                                   id="callbackUrl"
+                                   formControlName="callbackUrl"
+                                   placeholder="callbackUrl"
+                                   autocomplete="given-name"
+                                   required
+                                   [autofocus]="true"
+                                   [ngClass]="{ 'is-invalid': (submitted || f.callbackUrl.touched) && f.callbackUrl.invalid, 'is-valid': f.phone.touched && f.callbackUrl.valid  }" />
+                            <div *ngIf="submitted && f['callbackUrl'].invalid" class="invalid-feedback">
+                              <div *ngIf="f['callbackUrl'].errors.required">CallbackUrl is required</div>
+                            </div>
+                          </c-form-group>
+                          <c-form-group cCol md="4">
+                            <h6 class="col-form-label" for="paymentNotificationUrl">paymentNotificationUrl :</h6>
+                            <input cInput
+                                  id="paymentNotificationUrl"
+                                  formControlName="paymentNotificationUrl"
+                                  placeholder="paymentNotificationUrl"
+                                  autocomplete="given-name"
+                                  required
+                                  [autofocus]="true"
+                                  [ngClass]="{ 'is-invalid': (submitted || f.paymentNotificationUrl.touched) && f.paymentNotificationUrl.invalid, 'is-valid': f.address.touched && f.paymentNotificationUrl.valid  }" />
+                            <div *ngIf="submitted && f['paymentNotificationUrl'].invalid" class="invalid-feedback">
+                              <div *ngIf="f['paymentNotificationUrl'].errors.required">paymentNotificationUrl is required</div>
+                            </div>
+                          </c-form-group>
+                        </c-row>
+                        <c-row>
+                        <c-form-group cCol md="4">
+                          <h6 class="col-form-label" for="successNotificationUrl">SuccessNotificationUrl :</h6>
+                          <input cInput
+                                id="successNotificationUrl"
+                                formControlName="successNotificationUrl"
+                                placeholder="successNotificationUrl"
+                                autocomplete="given-name"
+                                required
+                                [autofocus]="true"
+                                [ngClass]="{ 'is-invalid': (submitted || f.successNotificationUrl.touched) && f.successNotificationUrl.invalid, 'is-valid': f.country.touched && f.successNotificationUrl.valid  }" />
+                          <div *ngIf="submitted && f['successNotificationUrl'].invalid" class="invalid-feedback">
+                            <div *ngIf="f['successNotificationUrl'].errors.required">successNotificationUrl is required</div>
+                          </div>
+                        </c-form-group>
+                        
+                          <c-form-group cCol md="4">
+                            <h6 class="col-form-label" for="acceptNotificationUrl">AcceptNotificationUrl :</h6>
+                            <input cInput
+                                   id="acceptNotificationUrl"
+                                   formControlName="acceptNotificationUrl"
+                                   placeholder="acceptNotificationUrl"
+                                   autocomplete="given-name"
+                                   required
+                                   [autofocus]="true"
+                                   [ngClass]="{ 'is-invalid': (submitted || f.acceptNotificationUrl.touched) && f.acceptNotificationUrl.invalid, 'is-valid': f.pincode.touched && f.acceptNotificationUrl.valid  }" />
+                            <div *ngIf="submitted && f['acceptNotificationUrl'].invalid" class="invalid-feedback">
+                              <div *ngIf="f['acceptNotificationUrl'].errors.required">acceptNotificationUrl is required</div>
+                            </div>
+                          </c-form-group>          
+                          <c-form-group cCol md="4">
+                            <h6 class="col-form-label" for="remarksNotificationUrl">RemarksNotificationUrl :</h6>
+                            <input cInput
+                                   id="remarksNotificationUrl"
+                                   formControlName="remarksNotificationUrl"
+                                   placeholder="remarksNotificationUrl"
+                                   autocomplete="given-name"
+                                   required
+                                   [autofocus]="true"
+                                   [ngClass]="{ 'is-invalid': (submitted || f.remarksNotificationUrl.touched) && f.remarksNotificationUrl.invalid, 'is-valid': f.primaryContact.touched && f.remarksNotificationUrl.valid  }" />
+                            <div *ngIf="submitted && f['remarksNotificationUrl'].invalid" class="invalid-feedback">
+                              <div *ngIf="f['remarksNotificationUrl'].errors.required">remarksNotificationUrl is required</div>
+                            </div>
+                          </c-form-group>
+                        </c-row> 
+                          <c-form-group>
+                            <button cButton color="primary" class="mfe-1" type="submit" (click)="onSaveMerchant(simpleForm.value)" [disabled]="simpleForm.valid" [tabindex]="'0'" >Submit</button>
+                            <button cButton color="success" class="mfe-1" [disabled]="simpleForm.valid" (click)="onValidate()" [tabindex]="'0'">Validate</button>
+                            <button cButton color="danger" type="reset" (click)="onReset()" [tabindex]="'0'">Clear</button>
+                          </c-form-group>
+                        </form>
+                      </c-col>
+                      </ng-container>
+
+              </c-tab-pane>
+            </c-tab-content>
+          </c-tabset>
+        </c-card-body>
+      </c-card>
+    </c-col>
+  </c-row>
+</div>

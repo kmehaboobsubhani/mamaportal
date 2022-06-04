@@ -1,0 +1,54 @@
+<div class="fade-in">
+  <c-row>
+    <c-col lg="6">
+      <c-card>
+        <c-card-header>
+          Users
+        </c-card-header>
+        
+        <c-card-body>
+          <button cButton color="primary" class="mfe-1" >Add</button>
+          <table class="table table-responsive-sm">
+            <colgroup>
+              <col class="column-1" />
+              <col class="column-2" />
+              <col class="column-3" />
+              <col class="column-4" />
+              <col class="column-5" />
+            </colgroup>
+            <thead>
+              <tr>
+                <th scope="col">id</th>
+                <th>Username</th>
+                <th>Registered</th>
+                <th>Role</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let user of returnedArray">
+                <th scope="row">{{ user.id }}</th>
+                <td>{{ user.name }}</td>
+                <td>{{ user.registered | date: "shortDate" }}</td>
+                <td>{{ user.role }}</td>
+                <td>
+                  <c-badge [color]="getBadge(user.status)">{{
+                    user.status
+                  }}</c-badge>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <pagination
+            [totalItems]="tableData.length"
+            (pageChanged)="pageChanged($event)"
+            [itemsPerPage]="5"
+            [(ngModel)]="currentPage"
+            [maxSize]="4"
+            [rotate]="true"
+          ></pagination>
+        </c-card-body>
+      </c-card>
+    </c-col>
+  </c-row>
+</div>
