@@ -135,6 +135,12 @@ export const routes: Routes = [
         loadChildren: () =>
           import('./views/base/base.module').then((m) => m.BaseModule),
       },
+
+      {
+        path: 'allMachineTransactions',
+        loadChildren: () =>
+          import('./views/machinetransactions/transactions.module').then((m) => m.TransactionsModule),
+       },
       // {
       //   path: 'tables',
       //   loadChildren: () =>

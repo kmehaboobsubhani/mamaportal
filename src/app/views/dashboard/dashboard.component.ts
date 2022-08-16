@@ -58,6 +58,12 @@ export class DashboardComponent implements OnInit {
   public pepsi : number ;
   public chips : number ;
   public sanitaryNapkinSmall : number ;
+
+  public bhujiaSevName : string ;
+  public pepsiName : string ;
+  public chipsName : string ;
+  public sanitaryNapkinSmallName : string ;
+
   public bhujiaSevPercentage : number ;
   public pepsiPercentage : number ;
   public chipsPercentage : number ;
@@ -76,13 +82,17 @@ export class DashboardComponent implements OnInit {
   public selectedOption: string;
   public printedOption: string;
 
- 
+  public isbhujiaSev: boolean ;
+  public ispepsi: boolean ;
+  public ischips: boolean ;
+  public issanitaryNapkinSmall: boolean ;
+
   countries = [
     { value: "m", name: "Month" },
     { value: "Y", name: "Year" }
   ];
 
-  constructor(private chartsData: DashboardChartsData, private fb: FormBuilder, private service: DataService, private commonData: CommonDataService,) 
+constructor(private chartsData: DashboardChartsData, private fb: FormBuilder, private service: DataService, private commonData: CommonDataService,) 
   {
     this.createForm();
     this.service.getAllStatusOfMachines(this.commonData.merchantId).subscribe(
@@ -122,7 +132,8 @@ export class DashboardComponent implements OnInit {
       "merchantId": this.commonData.merchantId,   
     }
     this.onAddRevenueDate(revenue);
-  }
+}
+
 onAddTransactionDate(addItems : any={}){
   if(addItems.fromDate == null || addItems.fromDate == '' && addItems.toDate == null || addItems.toDate == '' )
   {
@@ -169,10 +180,9 @@ onAddTransactionDate(addItems : any={}){
       }     
     });
   }       
-  }
+}
 
 onAddRevenueDate(addItems : any={}){
-  debugger;
   if(addItems.country == null || addItems.country == '')
   {
   let revenueDate = {
@@ -210,7 +220,14 @@ else{
 }
  
 MachineStatus(data: ITableData): void {
-this.active = data.activeCount;
+  debugger;
+  this.active  = 0 ;
+  this.inActive = 0 ;
+  if(data.inActiveCount == null || data.inActiveCount == 0 || data.inActiveCount == NaN){
+    data.inActiveCount = 0
+  }
+  
+this.active =  data.activeCount;
 this.inActive = data.inActiveCount;
 this.onlinepercentage = (data.activeCount) /(data.activeCount + data.inActiveCount)*100 ;
 this.offlinepercentage = (data.inActiveCount)/(data.activeCount + data.inActiveCount)*100; 
@@ -231,7 +248,6 @@ this.statusMachineChart.pieColor  = [
 }
 
 soldItems(data: any[]): void {
-  debugger
   this.bhujiaSev = 0 ;
   this.pepsi = 0 ;
   this.chips = 0 ;
@@ -244,27 +260,36 @@ soldItems(data: any[]): void {
  for (let i = 0; i < this.soldArrayLength; i++) {
   if(data[i].itemName == "Bhujia Sev"){
     this.bhujiaSev = data[i].totalQuantity;
+    this.bhujiaSevName =data[i].itemName;
+    this.isbhujiaSev = true;
+
   }
   else if(data[i].itemName == "Pepsi")
   {
     this.pepsi = data[i].totalQuantity ;
+    this.pepsiName = data[i].itemName;
+    this.ispepsi = true;
+
   }
   else if(data[i].itemName == "chips")
   {
     this.chips = data[i].totalQuantity;
+    this.chipsName = data[i].itemName;
+    this.ischips = true;
   }
   else
   {
     this.sanitaryNapkinSmall = data[i].totalQuantity ;
+    this.sanitaryNapkinSmallName = data[i].itemName;
+    this.issanitaryNapkinSmall = true;
   }
  }
-
  this.bhujiaSevPercentage = (this.bhujiaSev) /(this.bhujiaSev + this.pepsi + this.chips + this.sanitaryNapkinSmall )*100 ;
  this.pepsiPercentage = (this.pepsi) /(this.bhujiaSev + this.pepsi + this.chips + this.sanitaryNapkinSmall)*100 ;
  this.chipsPercentage = (this.chips) /(this.bhujiaSev + this.pepsi + this.chips + this.sanitaryNapkinSmall)*100 ;
  this.sanitaryNapkinSmallPercentage =(this.sanitaryNapkinSmall) / (this.bhujiaSev + this.pepsi + this.chips + this.sanitaryNapkinSmall)*100 ;
 
-  this.soldItemsChart.doughnutChartLabels = ['Bhujia Sev','Pepsi','chips','Sanitary Napkin Small'];
+  this.soldItemsChart.doughnutChartLabels = [[this.bhujiaSevName],[this.pepsiName],[this.chipsName],[this.sanitaryNapkinSmallName]];
   this.soldItemsChart.doughnutChartType = 'doughnut';
   this.soldItemsChart.doughnutChartLegend = true;
   this.soldItemsChart.doughnutChartData =  [this.bhujiaSev,this.pepsi,this.chips,this.sanitaryNapkinSmall];
@@ -272,17 +297,16 @@ soldItems(data: any[]): void {
   this.soldItemsChart.pieColor  = [
     {
       backgroundColor: [
-        'rgba(242,77,65,255)',
-        'rgba(49,182,77,255)',
-        'rgba(252,203,86,255)',
-        'rgba(104,223,237,255)'
+        ['rgba(242,77,65,255)'],
+        ['rgba(49,182,77,255)'],
+        ['rgba(252,203,86,255)'],
+        ['rgba(104,223,237,255)']
       ]
     }
   ];
 }
-  
+
 transactionCount(data: ITableData): void {
-  debugger
 if(this.transactionArrayLength == 0 || this.transactionArrayLength == null){
   this.isShown = true;
   this.ispieShown = false;
@@ -351,7 +375,6 @@ else{
 }
 
 merchantRevenue(data: ITableData): void {
-  debugger;
 if(data['totalRevenueData'].week1 == 0 && this.flag == 'm' || data['totalRevenueData'].week1 == null && this.flag == 'm' || data['totalRevenueData'].DECEMBER2021 == 0 &&  this.flag == 'Y' || data['totalRevenueData'].DECEMBER2021 == null && this.flag == 'Y'){
   this.isHide = true;
   this.isPieHide = false;
@@ -369,7 +392,6 @@ else{
     //   this.totalRevenue = data.totalRevenue;
     //   this.revenuePercentage =  (data.totalRevenue / (data.totalRevenue + 0))*100;
     // }
-  debugger;
     if(this.flag == 'm'){
       this.monthOrYear = "Month";
       this.salesDetailsChart.arbarChartLabels = ['week1','week2','week3','week4'];

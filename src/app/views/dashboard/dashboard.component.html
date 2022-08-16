@@ -50,31 +50,43 @@
         <c-col sm="0.5" [md]="true" class="mb-sm-2 mb-0">
           
         </c-col>
+      <div *ngIf="isbhujiaSev">
         <c-col sm="1.5" [md]="true" class="mb-sm-2 mb-0">
-          <div>{{bhujiaSev}} BhujiaSev ({{bhujiaSevPercentage | number : '1.2-2'}}%)</div>
+          <div>{{bhujiaSev}} {{bhujiaSevName}} ({{bhujiaSevPercentage | number : '1.2-2'}}%)</div>
           <c-progress size="xs" class="mt-2">
             <c-progress-bar color="danger" [value]=bhujiaSevPercentage></c-progress-bar>
           </c-progress>
         </c-col>
+      </div>
+
+      <div *ngIf="ispepsi">
         <c-col sm="1.5" [md]="true" class="mb-sm-2 mb-0">
-          <div>{{pepsi}} Pepsi ({{pepsiPercentage | number : '1.2-2'}}%)</div>
+          <div>{{pepsi}} {{pepsiName}} ({{pepsiPercentage | number : '1.2-2'}}%)</div>
           <c-progress size="xs" class="mt-2">
             <c-progress-bar color="success" [value]=pepsiPercentage></c-progress-bar>
           </c-progress>
         </c-col>
+      </div>
+
+      <div *ngIf="ischips">
         <c-col sm="1.5" [md]="true" class="mb-sm-2 mb-0">
-          <div>{{chips}} Chips ({{chipsPercentage | number : '1.2-2'}}%)</div>
+          <div>{{chips}} {{chipsName}} ({{chipsPercentage | number : '1.2-2'}}%)</div>
           <c-progress size="xs" class="mt-2">
             <c-progress-bar color="warning" [value]=chipsPercentage></c-progress-bar>
           </c-progress>
         </c-col>
+      </div> 
+
+      <div *ngIf="issanitaryNapkinSmall">
         <c-col sm="1.5" [md]="true" class="mb-sm-2 mb-0">
-          <div>{{sanitaryNapkinSmall}} Sanitary Napkin Small ({{sanitaryNapkinSmallPercentage | number : '1.2-2'}}%)</div>
+          <div>{{sanitaryNapkinSmall}} {{sanitaryNapkinSmallName}} ({{sanitaryNapkinSmallPercentage | number : '1.2-2'}}%)</div>
           <c-progress size="xs" class="mt-2">
             <c-progress-bar color="info" [value]=sanitaryNapkinSmallPercentage></c-progress-bar>
             <!-- <c-progress-bar color="secondary" [value]=sanitaryNapkinSmallPercentage></c-progress-bar> -->
           </c-progress>
         </c-col>
+      </div> 
+
       </c-row>
     </c-card-footer>
   </c-card>
@@ -215,7 +227,7 @@
         </canvas>
       </div>
       <div *ngIf="isHide" id="divhide" class="row container-fluid" style="font-size: 33px;
-      text-align: center;margin: 30px">Data not Exist for the Selected Item</div>
+         text-align: center;margin: 30px">Data not Exist for the Selected Item</div>
       </c-col>
       <c-col sm="4">
         <div style="margin: 20px;">

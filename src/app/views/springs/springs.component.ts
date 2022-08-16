@@ -17,7 +17,7 @@ export class SpringsComponent implements OnInit {
   public itemNames: any = [];
   public selItem : any;
   public filterQuery = '';
-
+  showDSialougeMessage = false;
   totalItems: number = 64;
   currentPage: number = 4;
   smallnumPages: number = 10;
@@ -52,20 +52,25 @@ export class SpringsComponent implements OnInit {
     this.spinner.show();
     this.route.queryParams
       .subscribe(params => {
-        console.log(params); // { order: "popular" }
+        console.log(params);
         this.machineId = params.machineId;
-        console.log(this.machineId); // popular
+        console.log(this.machineId);
       }
     );
 
     this.itemNames = this.commonData.itemNames;
 
     this.service.getSprings(this.commonData.merchantId, this.machineId).subscribe((resp: any) => {
+      this.showDSialougeMessage = false;
       console.log("getSprings Reponse:::" + JSON.stringify(resp));
       if (resp && resp.statusCode == 200) {
         console.log("Springs...............................")
         this.springs = resp.rowSprings;
         this.spinner.hide();
+      }
+      else
+      {
+        this.showDSialougeMessage = true;
       }
     });
   }
@@ -85,6 +90,7 @@ export class SpringsComponent implements OnInit {
   }
 
   springPop(sNo, sp, qty, stkid, name) {
+    debugger
     this.sNo = sNo;
     this.springName = sp;
     this.availability = qty;
@@ -107,21 +113,21 @@ export class SpringsComponent implements OnInit {
       "itemFromStockId": this.selItem
     }
     this.service.loadItemsOfSpring(spr).subscribe((resp: any) => {
+      debugger
       console.log("loadItemsOfSpring Reponse:::" + JSON.stringify(resp));
       if (resp && resp.status == 200) {
-       // console.log("Springs...............................");
         this.springs.forEach(sp => {
           console.log(">>>>>>>>>"+JSON.stringify(sp))
           let spr = sp.springs.find(s => s.springName == this.springName);
           if(spr) {
             spr.availability = this.availability;
             let itm = this.itemNames.find(i => i.itemFromStockId==this.selItem);
-           // console.log("item..................."+JSON.stringify(itm))
             spr.name =  itm.itemName;
             spr.base64 = itm.icon;
           }
         });
       }
+      
     });
   }
 

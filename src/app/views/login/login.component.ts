@@ -12,19 +12,17 @@ export class LoginComponent {
   @HostBinding('class') cAppClass = 'c-app flex-row align-items-center';
   ABC1234567 = "ABC1234567"
   login: any = {};
+  showErrorMessage=false;
   constructor(private service: DataService, private commonData: CommonDataService,
-    //private spinner: NgxSpinnerService,
     private router: Router, 
-    //private data: Data, 
-    //private shareTitleService: ShareTitleService
     ) { }
 
   ngOnInit(): void {
   }
   
   onLogin() {
-    //this.spinner.show();
-    this.login.merchantId="ABC1234567"
+    //this.login.merchantId="ABC1234567"
+    this.showErrorMessage = false;
     this.commonData.userId = this.login.userId;
     this.commonData.merchantId = this.login.merchantId;
     this.service.login(this.login).subscribe((resp: any) => {
@@ -33,7 +31,9 @@ export class LoginComponent {
           console.log("Navingation... to home")
           this.router.navigate(["dashboard"]);
       }
-     // this.spinner.hide();     
+      else{
+        this.showErrorMessage = true;
+      }    
     });
   }
 }

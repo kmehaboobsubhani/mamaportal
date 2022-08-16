@@ -3,7 +3,7 @@ import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { CommonDataService } from '../../Common/common-data.service';
 import { DataService } from '../../service/data.service';
 import { ITableData } from '../tables/data-tables/data-tables.service';
-
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   templateUrl: 'transactions.component.html',
@@ -12,20 +12,35 @@ import { ITableData } from '../tables/data-tables/data-tables.service';
 export class TransactionsComponent implements OnInit {
   tableData: any;
   returnedArray: ITableData[];
-
+  machineId: string;
   currentPage = 1;
   page: number;
   totalRows = 0;
+  totalRowsp = 0
 
-  constructor(private service: DataService, private commonData: CommonDataService) {}
+  constructor(private service: DataService, private commonData: CommonDataService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
+
+    this.route.queryParams
+      .subscribe(params => {
+        console.log(params);
+        this.machineId = params.machineId;
+        console.log(this.machineId);
+      }
+    );
     
-    this.service.totalMerchantTransactions(this.commonData.merchantId).subscribe((resp: any) => {
-      console.log("totalMerchantTransactions :"+resp);
-      this.totalRows = resp;
+
+    this.service.getMerchantTransactions(this.commonData.merchantId,this.machineId, 15, this.currentPage).subscribe((resp: any) => {
+      console.log("getMerchantTransactions Reponse:::" + JSON.stringify(resp));
+      this.totalRowsp = resp.length;
+      console.log(this.totalRowsp);
+      this.totalRows = this.totalRowsp;
+
       this.getTransactions();
     });
+
+ 
   }
 
   refreshPage() {
@@ -36,14 +51,17 @@ export class TransactionsComponent implements OnInit {
 
   getTransactions() {
     if(this.totalRows > 0) {
-      this.service.getMerchantTransactions(this.commonData.merchantId, 15, this.currentPage).subscribe((resp: any) => {
+      this.service.getMerchantTransactions(this.commonData.merchantId,this.machineId, 15, this.currentPage).subscribe((resp: any) => {
         console.log("getMerchantTransactions Reponse:::" + JSON.stringify(resp));
+        this.totalRowsp = resp.length;
+        console.log(this.totalRowsp);
         if (resp) {
           console.log("Txns...............................")
           this.tableData = resp;
-          this.returnedArray = this.tableData.slice(0, 15);
+          this.returnedArray = this.tableData.slice(0,8);
         }
       });
+
     }
   }
 

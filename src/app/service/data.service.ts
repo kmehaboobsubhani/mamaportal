@@ -194,23 +194,41 @@ export class DataService {
  }
   
 
-   getMerchantTransactions(merchantId: string, noOfRows: number, pageNo: number): Observable<any> {
-     console.log("Connecting..."+this.url + '/merchantTransactions'+"/"+merchantId+"/"+noOfRows+"/"+pageNo)
-     return this.http.get(this.url + '/merchantTransactions'+"/"+merchantId+"/"+noOfRows+"/"+pageNo, this.httpOptions)
+   getMerchantTransactions(merchantId: string, machineId: string, noOfRows: number, pageNo: number): Observable<any> {
+     console.log("Connecting..."+this.url + '/machineTransactions'+"/"+machineId)
+     return this.http.get(this.url + '/machineTransactions'+"/"+machineId, this.httpOptions)
      .pipe(
        retry(1),
        catchError(this.handleError)
      )
    }
 
-  totalMerchantTransactions(merchantId: string): Observable<any> {
-    console.log("Connecting..."+this.url + '/totalMerchantTransactions'+"/"+merchantId)
-    return this.http.get(this.url + '/totalMerchantTransactions'+"/"+merchantId, this.httpOptions)
+  totalMerchantTransactions(merchantId: string, machineId: string,): Observable<any> {
+    console.log("Connecting..."+this.url + '/totalMerchantTransactions'+"/"+machineId)
+    return this.http.get(this.url + '/totalMerchantTransactions'+"/"+machineId, this.httpOptions)
     .pipe(
       retry(1),
       catchError(this.handleError)
     )
   }
+
+  getMerchantMachineTransactions(merchantId: string, noOfRows: number, pageNo: number): Observable<any> {
+    console.log("Connecting..."+this.url + '/merchantTransactions'+"/"+merchantId+"/"+noOfRows+"/"+pageNo)
+    return this.http.get(this.url + '/merchantTransactions'+"/"+merchantId+"/"+noOfRows+"/"+pageNo, this.httpOptions)
+    .pipe(
+      retry(1),
+      catchError(this.handleError)
+    )
+  }
+
+ totalMerchantMachineTransactions(merchantId: string): Observable<any> {
+   console.log("Connecting..."+this.url + '/totalMerchantTransactions'+"/"+merchantId)
+   return this.http.get(this.url + '/totalMerchantTransactions'+"/"+merchantId, this.httpOptions)
+   .pipe(
+     retry(1),
+     catchError(this.handleError)
+   )
+ }
 
   getMerchantLockerTransactions(masterLockerId: string, noOfRows: number, pageNo: number): Observable<any> {
     console.log("Connecting..."+this.url + '/getMerchantLockerTransactions'+"/"+masterLockerId+"/"+noOfRows+"/"+pageNo)

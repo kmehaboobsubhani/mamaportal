@@ -1,7 +1,7 @@
 <c-row>
+  
    <c-col col="12">
-   
-      <div class="input-group" style="float: left;">
+      <div class="input-group" style="float: left;">      
          <div class="input-group-prepend">
            <span class="input-group-text"><i class="cil-search"></i></span>
          </div>
@@ -20,7 +20,12 @@
    </div>
     </c-col>
     </c-row>
+    <div *ngIf="showDSialougeMessage">
+      <h2  class="centermid" style="color:#d15629; font-weight:1000; text-align: center; ">Springs data not exist</h2>
+    </div>
 <div *ngFor="let rowSprings of springs; let i = index" class="fade-in">
+
+  
 <c-row>
   
   <c-col  *ngFor="let item of rowSprings.springs; let j = index" sm="6" md="4" style=" max-width: 72.333333%;">

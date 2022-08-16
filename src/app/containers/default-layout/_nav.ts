@@ -38,6 +38,18 @@ export const navItems: INavData[] = [
   },
 
   {
+    name: 'Transactions',
+    url: '/theme',
+    icon: 'cil-money',
+    children: [
+      {
+        name: 'Transactions',
+        url: '/allMachineTransactions',
+      },
+    ],
+  },
+
+  {
     name: 'Machines',
     url: '/theme',
     icon: 'cil-mobile',
