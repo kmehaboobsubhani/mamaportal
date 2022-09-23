@@ -2,12 +2,26 @@
   <form [formGroup]="entryForm" novalidate>
     <div class="card">
       <div class="card-header">
+        <c-col md="12">
+          <c-row>
+            <c-form-group cCol md="4">
         <div class="float-left">
           <h3 class="text-info">Add Item</h3>
         </div>
+      </c-form-group>
+      <c-form-group cCol md="4">
+        <div  *ngIf="showErrorMessage">
+           <h3   style="color :seagreen;  font-weight:1000; text-align: center;">Item Added successfully</h3> 
+          <!-- <c-badge font-weight:1000 color="success">Item Added successfully</c-badge>  -->
+        </div>
+      </c-form-group>
+      <c-form-group cCol md="4">
         <div class="float-right">
           <a class="btn btn-primary" [routerLink]="['/items']"><i class="fa fa-arrow-left"></i> Back to Item List</a>
         </div>
+      </c-form-group>
+      </c-row>
+      </c-col>
       </div>
       <div class="card-body">
 
@@ -16,16 +30,16 @@
             <form [formGroup]="simpleForm" novalidate (ngSubmit)="onSubmit()" class="needs-validation">
               <c-row>
                 <c-form-group cCol md="4">
-                  <h6 class="col-form-label" for="name">Name :</h6>
+                  <h4 class="col-form-label" for="name">Name :</h4>
                   <input cInput id="name" formControlName="name" placeholder="Name" autocomplete="given-name" required
                     [autofocus]="true"
                     [ngClass]="{ 'is-invalid': (submitted || f.name.touched) && f.name.invalid, 'is-valid': f.category.touched && f.name.valid  }" />
                   <div *ngIf="submitted && f['name'].invalid" class="invalid-feedback">
-                    <div *ngIf="f['name'].errors.required">Name is required</div>
+                    <div *ngIf="f['name'].errors.required">name is required</div>
                   </div>
                 </c-form-group>
                 <c-form-group cCol md="4">
-                  <h6 class="col-form-label" for="category">category :</h6>
+                  <h4 class="col-form-label" for="category">Category :</h4>
                   <input cInput id="category" formControlName="category" placeholder="category" autocomplete="given-name" required
                     [ngClass]="{ 'is-invalid': (submitted || f.category.touched) && f.category.errors, 'is-valid': f.description.touched && !f.category.errors }" />
                   <div *ngIf="submitted && f['category'].errors" class="invalid-feedback">
@@ -33,59 +47,47 @@
                   </div>
                 </c-form-group>
                 <c-form-group cCol md="4">
-                  <h6 class="col-form-label" for="description">Description :</h6>
+                  <h4 class="col-form-label" for="description">Description :</h4>
                   <input cInput id="description" formControlName="description" placeholder="description"
                     autocomplete="family-name" required
                     [ngClass]="{ 'is-invalid':  (submitted || f.description.touched) && f.description.invalid, 'is-valid': f.itemId.touched && f.description.valid }" />
                   <div *ngIf="submitted && f['description'].invalid" class="invalid-feedback">
-                    <div *ngIf="f['description'].errors.required">Description is required</div>
-                  </div>
-                </c-form-group>
-              </c-row>
-              <c-row>
-                <c-form-group cCol md="6">
-                  <h6 class="col-form-label" for="itemId">ItemId :</h6>
-                  <input cInput id="itemId" formControlName="itemId" placeholder="item Id" autocomplete="given-name"
-                    required [autofocus]="true"
-                    [ngClass]="{ 'is-invalid': (submitted || f.itemId.touched) && f.itemId.invalid, 'is-valid': f.merchantId.touched && f.itemId.valid  }" />
-                  <div *ngIf="submitted && f['itemId'].invalid" class="invalid-feedback">
-                    <div *ngIf="f['itemId'].errors.required">ItemId is required</div>
-                  </div>
-                </c-form-group>
-                <c-form-group cCol md="6">
-                  <h6 class="col-form-label" for="merchantId">MerchantId :</h6>
-                  <input cInput id="merchantId" formControlName="merchantId" placeholder="merchantId"
-                    autocomplete="given-name" required [autofocus]="true"
-                    [ngClass]="{ 'is-invalid': (submitted || f.merchantId.touched) && f.merchantId.invalid, 'is-valid': f.gst.touched && f.merchantId.valid  }" />
-                  <div *ngIf="submitted && f['merchantId'].invalid" class="invalid-feedback">
-                    <div *ngIf="f['merchantId'].errors.required">merchantId is required</div>
-                  </div>
-                </c-form-group>
-
-              </c-row>
-              <c-row>
-                <c-form-group cCol md="6">
-                  <h6 class="col-form-label" for="gst">Gst Number :</h6>
-                  <input cInput id="gst" formControlName="gst" placeholder="gstNumber" autocomplete="given-name"
-                    required [autofocus]="true"
-                    [ngClass]="{ 'is-invalid': (submitted || f.gst.touched) && f.gst.invalid, 'is-valid': f.discount.touched && f.gst.valid  }" />
-                  <div *ngIf="submitted && f['gst'].invalid" class="invalid-feedback">
-                    <div *ngIf="f['gst'].errors.required">Gst Number is required</div>
-                  </div>
-                </c-form-group>
-                <c-form-group cCol md="6">
-                  <h6 class="col-form-label" for="discount">Discount :</h6>
-                  <input cInput id="discount" formControlName="discount" placeholder="discount"
-                    autocomplete="given-name" required [autofocus]="true"
-                    [ngClass]="{ 'is-invalid': (submitted || f.discount.touched) && f.discount.invalid, 'is-valid': f.costPrice.touched && f.discount.valid  }" />
-                  <div *ngIf="submitted && f['discount'].invalid" class="invalid-feedback">
-                    <div *ngIf="f['discount'].errors.required">Discount is required</div>
+                    <div *ngIf="f['description'].errors.required">description is required</div>
                   </div>
                 </c-form-group>
               </c-row>
               <c-row>
                 <c-form-group cCol md="4">
-                  <h6 class="col-form-label" for="costPrice">costPrice :</h6>
+                  <h4 class="col-form-label" for="itemId">ItemId :</h4>
+                  <input cInput id="itemId" formControlName="itemId" placeholder="item Id" autocomplete="given-name"
+                    required [autofocus]="true"
+                    [ngClass]="{ 'is-invalid': (submitted || f.itemId.touched) && f.itemId.invalid, 'is-valid': f.gst.touched && f.itemId.valid  }" />
+                  <div *ngIf="submitted && f['itemId'].invalid" class="invalid-feedback">
+                    <div *ngIf="f['itemId'].errors.required">itemId is required</div>
+                  </div>
+                </c-form-group>
+                <c-form-group cCol md="4">
+                  <h4 class="col-form-label" for="gst">Gst Number :</h4>
+                  <input cInput id="gst" formControlName="gst" placeholder="gstNumber" autocomplete="given-name"
+                    required [autofocus]="true"
+                    [ngClass]="{ 'is-invalid': (submitted || f.gst.touched) && f.gst.invalid, 'is-valid': f.discount.touched && f.gst.valid  }" />
+                  <div *ngIf="submitted && f['gst'].invalid" class="invalid-feedback">
+                    <div *ngIf="f['gst'].errors.required">gst Number is required</div>
+                  </div>
+                </c-form-group>
+                <c-form-group cCol md="4">
+                  <h4 class="col-form-label" for="discount">Discount :</h4>
+                  <input cInput id="discount" formControlName="discount" placeholder="discount"
+                    autocomplete="given-name" required [autofocus]="true"
+                    [ngClass]="{ 'is-invalid': (submitted || f.discount.touched) && f.discount.invalid, 'is-valid': f.costPrice.touched && f.discount.valid  }" />
+                  <div *ngIf="submitted && f['discount'].invalid" class="invalid-feedback">
+                    <div *ngIf="f['discount'].errors.required">discount is required</div>
+                  </div>
+                </c-form-group>
+              </c-row>
+              <c-row>
+                <c-form-group cCol md="4">
+                  <h4 class="col-form-label" for="costPrice">CostPrice :</h4>
                   <input cInput id="costPrice" formControlName="costPrice" placeholder="costPrice"
                     autocomplete="given-name" required [autofocus]="true"
                     [ngClass]="{ 'is-invalid': (submitted || f.costPrice.touched) && f.costPrice.invalid, 'is-valid': f.sellPrice.touched && f.costPrice.valid  }" />
@@ -95,7 +97,7 @@
                 </c-form-group>
 
                 <c-form-group cCol md="4">
-                  <h6 class="col-form-label" for="sellPrice">sellPrice :</h6>
+                  <h4 class="col-form-label" for="sellPrice">SellPrice :</h4>
                   <input cInput id="sellPrice" formControlName="sellPrice" placeholder="sellPrice"
                     autocomplete="given-name" required [autofocus]="true"
                     [ngClass]="{ 'is-invalid': (submitted || f.sellPrice.touched) && f.sellPrice.invalid, 'is-valid': f.threshold.touched && f.sellPrice.valid  }" />
@@ -105,7 +107,7 @@
                 </c-form-group>
 
                 <c-form-group cCol md="4">
-                  <h6 class="col-form-label" for="threshold">threshold :</h6>
+                  <h4 class="col-form-label" for="threshold">Threshold :</h4>
                   <input cInput id="threshold" formControlName="threshold" placeholder="threshold"
                     autocomplete="given-name" required [autofocus]="true"
                     [ngClass]="{ 'is-invalid': (submitted || f.threshold.touched) && f.threshold.invalid, 'is-valid': f.active.touched && f.threshold.valid  }" />
@@ -117,7 +119,7 @@
               <c-row>
 
                 <c-form-group cCol md="4">
-                  <h6 class="col-form-label" for="active">active :</h6>
+                  <h4 class="col-form-label" for="active">Active :</h4>
                   <input cInput id="active" formControlName="active" placeholder="active"
                     autocomplete="given-name" required [autofocus]="true"
                     [ngClass]="{ 'is-invalid': (submitted || f.active.touched) && f.active.invalid, 'is-valid': f.active.touched && f.active.valid  }" />

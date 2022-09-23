@@ -4,6 +4,9 @@
        <c-card-header>
          Transactions
          <button (click)="refreshPage()"><i class="fa fa-refresh"></i></button>
+         <div class="float-right">
+          <a style="color: #FFFFFF;" class="btn btn-primary" [routerLink]="['/machines']"><i class="fa fa-arrow-left"></i> Go Back</a>
+        </div>
        </c-card-header>
        <c-card-body>
          <table

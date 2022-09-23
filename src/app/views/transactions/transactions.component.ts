@@ -58,7 +58,7 @@ export class TransactionsComponent implements OnInit {
         if (resp) {
           console.log("Txns...............................")
           this.tableData = resp;
-          this.returnedArray = this.tableData.slice(0,8);
+          this.returnedArray = this.tableData.slice(0,10);
         }
       });
 
@@ -71,7 +71,7 @@ export class TransactionsComponent implements OnInit {
     this.page = event.page;
     this.currentPage = this.page;
     this.returnedArray = this.tableData.slice(startItem, endItem);
-    this.getTransactions();
+    //this.getTransactions();
   }
 
   getBadge(status) {

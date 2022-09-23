@@ -66,7 +66,8 @@
                   <button cButton color="primary" class="px-4" (click) = "onLogin()">Login</button>
                 </c-col>
                 <c-col col="6" class="text-right">
-                  <button cButton color="link" class="px-0" style="color:#cddde3">Forgot password?</button>
+                  <button cButton color="link" class="px-4" (click)="showOTP()" style="color:#cddde3">Forgot password?</button>
+                  
                 </c-col>
               </c-row>
             </form>
@@ -76,4 +77,45 @@
     </div>
   </c-row>
 </div>
+
+
+<div [style.display]="showOTPModal ? 'block' : 'none'" class="modal" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      
+<div  id="sect1">  
+  <c-row class="justify-content-center" >
+    <div class="center">
+      <c-card-group>
+        <c-card style="margin: 100px ;" >
+          <c-card-body style="height: 450px; width: 350px;  background-color: rgba(4,28,88,255);"  >
+            <form>
+              
+              <div>
+                <img class="centermid" src="assets/img/brand/mama.png" style="height: 110px;" > 
+              <p  style="color:#35b0e4; font-weight:1000; text-align: center; "></p>
+              <h2  class="centermid" style="color:#35b0e4; font-weight:1000; text-align: center; ">Digital Vending</h2> 
+  
+            </div>            
+              <!-- <h1 style="color:#35b0e4; font-weight:780;">Merchant Portal</h1> -->
+              <p  style="color:#cddde3; ">Forgot Password</p>
+              <div *ngIf="showErrorMessage">
+                <p   style="color:#f45151; font-weight:1000; text-align: center;">Invalid OTP Please Re Enter</p>
+              </div>             
+              <c-row> 
+              </c-row>
+            </form>
+          </c-card-body>
+        </c-card>
+      </c-card-group>
+    </div>
+  </c-row>
+</div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary" (click)="onforgotPassword();hideOTP()">Submit</button>
+        <button type="button" class="btn btn-dark" data-dismiss="modal" (click)="hideOTP()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>  
 

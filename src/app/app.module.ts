@@ -26,6 +26,8 @@ import {DataService} from './service/data.service'
 import { FormsModule  } from "@angular/forms";
 import { AgGridModule } from 'ag-grid-angular';
 import { ChartsModule as Ng2Charts } from 'ng2-charts';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
+
 const APP_CONTAINERS = [
   DefaultLayoutComponent,
   DefaultHeaderComponent,
@@ -116,6 +118,7 @@ import { DateTimePickerModule } from '@syncfusion/ej2-angular-calendars';
         MatFormFieldModule, MatDatepickerModule,
         MatNativeDateModule,MatAutocompleteModule,
         DateTimePickerModule
+
         
     ],
   exports: [SharedModule],

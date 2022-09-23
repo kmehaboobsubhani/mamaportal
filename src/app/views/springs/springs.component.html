@@ -1,12 +1,23 @@
-<c-row>
-  
+
+  <c-card>
+  <c-card-header>
+    
+    <c-card-header-actions style="height: 21px;" >
+      <div class="float-right">
+        <a style="color: #FFFFFF;" class="btn btn-primary" [routerLink]="['/machines']"><i class="fa fa-arrow-left"></i> Go Back</a>
+      </div>
+    </c-card-header-actions>
+  </c-card-header>
+  <c-card-body>
+<c-row>  
    <c-col col="12">
+      
+
       <div class="input-group" style="float: left;">      
          <div class="input-group-prepend">
            <span class="input-group-text"><i class="cil-search"></i></span>
          </div>
          <input cInput
- 
            [(ngModel)]="filterQuery"
            placeholder="Search here"
          />
@@ -26,11 +37,10 @@
 <div *ngFor="let rowSprings of springs; let i = index" class="fade-in">
 
   
-<c-row>
-  
+<c-row>  
   <c-col  *ngFor="let item of rowSprings.springs; let j = index" sm="6" md="4" style=" max-width: 72.333333%;">
     <c-card>
-      <c-card-header>
+      <c-card-header style="background-color: rgba(193, 244, 242, 0.793);">
         <a href="#" class="btn btn" [ngStyle]="{'background-color': item.availability>item.threshold ? '#BCDA6E' : 'red'}" style="border-radius: 0px;font-size: 12px;font-weight: 900;color: #000;">{{item.springName}}</a> 
         <c-card-header-actions style="height: 21px;" >
           <c-switch color="info" size="sm" checked labelOn="On" labelOff="Off"></c-switch>
@@ -127,4 +137,5 @@
  </c-modal>
  
 </div>
-
+</c-card-body>
+</c-card>

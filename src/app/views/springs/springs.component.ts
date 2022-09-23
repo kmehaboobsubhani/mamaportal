@@ -60,6 +60,8 @@ export class SpringsComponent implements OnInit {
 
     this.itemNames = this.commonData.itemNames;
 
+    debugger;
+
     this.service.getSprings(this.commonData.merchantId, this.machineId).subscribe((resp: any) => {
       this.showDSialougeMessage = false;
       console.log("getSprings Reponse:::" + JSON.stringify(resp));
@@ -90,6 +92,7 @@ export class SpringsComponent implements OnInit {
   }
 
   springPop(sNo, sp, qty, stkid, name) {
+    debugger;
     debugger
     this.sNo = sNo;
     this.springName = sp;

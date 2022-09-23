@@ -38,10 +38,12 @@ export const confirmPasswordValidator: ValidatorFn = (
   styleUrls: ['./configuration.component.css'],
   //providers: [ValidationFormsService],
 })
-export class ConfigurationComponent implements OnDestroy, OnInit, OnChanges {
+export class ConfigurationComponent implements OnDestroy, OnInit, OnChanges 
+{
   customer:any = {};
   simpleForm: FormGroup;
   lessonForm: FormGroup;
+  businessForm: FormGroup;
   submitted = false;
   formErrors: any;
   msg:string;
@@ -49,12 +51,14 @@ export class ConfigurationComponent implements OnDestroy, OnInit, OnChanges {
   registerForm: FormGroup;
   bodyText: string;
   ica:any = {};
+  myObjArray: Array<any> = [];
+  ObjArray: Array<any> = [];
+  mybusinessArray: any;
   private fieldArray: Array<any> = [];
-    private newAttribute: any = {};
-
-    private icaArray: Array<any> = [];
-    private newicaAttribute: any = {};
-
+  private newAttribute: any = {};
+  private icaArray: Array<any> = [];
+  private newicaAttribute: any = {};
+  myInstance:Business[] = [];
   private _setTab: number;
   get setTab() {
     return this._setTab;
@@ -138,23 +142,23 @@ export class ConfigurationComponent implements OnDestroy, OnInit, OnChanges {
         cid: ['', [Validators.required]],
         crc: ['', [Validators.required]],
         ica: ['', [Validators.required]],
-
-         asn: ['', [Validators.required]],
-         iid: ['', [Validators.required]],
-         itp: ['', [Validators.required]],
-         spn: ['', [Validators.required]],
+        asn: ['', [Validators.required]],
+        iid: ['', [Validators.required]],
+        itp: ['', [Validators.required]],
+        spn: ['', [Validators.required]],
         imx: ['', [Validators.required]],
         key: ['', [Validators.required]],
+        men: ['', [Validators.required]],
         mid: ['', [Validators.required]],
         qmx: ['', [Validators.required]],
-
+     
         loginId: [
-          '',
-          [
-            Validators.required,
-            Validators.minLength(this.vf.formRules.usernameMin),
-            Validators.pattern(this.vf.formRules.nonEmpty),
-          ],
+        '',
+        [
+        Validators.required,
+        Validators.minLength(this.vf.formRules.usernameMin),
+        Validators.pattern(this.vf.formRules.nonEmpty),
+        ],
         ],
         merchantId: ['', [Validators.required]],
         companyName: ['', [Validators.required]],
@@ -167,8 +171,7 @@ export class ConfigurationComponent implements OnDestroy, OnInit, OnChanges {
         pincode: ['', [Validators.required]],        
         primaryContact: ['', [Validators.required]],
         secondaryContact: ['', [Validators.required]],
-        // email: ['', [Validators.required, Validators.email]],
-
+     // email: ['', [Validators.required, Validators.email]],
         keys: ['', [Validators.required]],
         mids: ['', [Validators.required]],
         nss: ['', [Validators.required]],
@@ -201,9 +204,6 @@ export class ConfigurationComponent implements OnDestroy, OnInit, OnChanges {
         pid: ['', [Validators.required]],
         mac: ['', [Validators.required]],
 
-
-
-
       },
       { validators: confirmPasswordValidator }
     );
@@ -211,22 +211,43 @@ export class ConfigurationComponent implements OnDestroy, OnInit, OnChanges {
 
   get f() {
     return this.simpleForm.controls;
+    return this.businessForm.controls;
+    
   }
 
   onReset() {
     this.submitted = false;
     this.simpleForm.reset();
+    this.businessForm.reset();
   }
 
   onValidate() {
     this.submitted = true;
     return this.simpleForm.status === 'VALID';
+    return this.businessForm.status === 'VALID';
   }
 
   onSaveBusiness(business : Business){
-    console.log(business);
+
+    this.mybusinessArray = (
+      {
+        "cid": business.cid ,
+        "crc": parseInt(business.crc + ""),
+        "ica": this.ObjArray,
+        "imx": parseInt(business.imx + "") ,
+        "key": business.key,
+        "men": parseInt(business.men + ""),
+        "mid": business.mid,
+        "qmx": parseInt(business.qmx+ ""),
+    }
+      
+    )
+
+    console.log( this.mybusinessArray);
+    // this.myObjArray.push({"ica": {"asn": business.asn, "iid": business.iid,"itp": business.itp,"spn": business.spn}});
     debugger;
-    this.service.saveBusiness(business).subscribe((resp: any) => {
+    console.log("testforbug" +  JSON.stringify(this.mybusinessArray));
+    this.service.saveBusiness(this.mybusinessArray).subscribe((resp: any) => {
       console.log("login Reponse:::" + JSON.stringify(resp));
       if(resp && resp.statusCode == 200) {
           console.log("Sucess")
@@ -250,6 +271,15 @@ export class ConfigurationComponent implements OnDestroy, OnInit, OnChanges {
     debugger;
     if (this.onValidate()) {
       console.warn(this.simpleForm.value);
+
+      alert('SUCCESS!');
+    }
+  }
+
+  onBusinessSubmit() {
+    debugger;
+    if (this.onValidate()) {
+      console.warn(this.businessForm.value);
       alert('SUCCESS!');
     }
   }
@@ -280,10 +310,10 @@ export class ConfigurationComponent implements OnDestroy, OnInit, OnChanges {
 
     icaFieldValue(icaArray) {
       debugger;
-      this.icaArray.push(this.newicaAttribute)
-      this.newicaAttribute = {};
+      this.myObjArray.push({"asn":[parseInt(icaArray.asn)], "iid": parseInt(icaArray.iid),"itp": parseInt(icaArray.itp),"spn": parseInt(icaArray.spn)});
+      this.newicaAttribute =JSON.parse(JSON.stringify( this.myObjArray));
+      this.ObjArray = Object.assign(this.newicaAttribute);
+      this.icaArray.push(this.newicaAttribute)     
   }
-
-
 }
 

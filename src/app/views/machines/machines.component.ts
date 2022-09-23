@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, Output, EventEmitter } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { getStyle, rgbToHex } from '@coreui/utils/src';
 import { DataService } from '../../service/data.service';
@@ -24,7 +24,8 @@ export class MachinesComponent implements OnInit {
   bigTotalItems: number = 675;
   bigCurrentPage: number = 1;
   numPages: number = 0;
-
+  checked: boolean;
+  debugger;
   currentPager: number = 4;
   loremText =
     'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.';
@@ -34,11 +35,13 @@ export class MachinesComponent implements OnInit {
   public levels: any = [];
   constructor(private service: DataService, private commonData: CommonDataService, 
     private router: Router) { }
-
+    
   toggleCollapse() {
     this.collapsed = !this.collapsed;
   }
-
+  onChange(event: any){
+    console.log("getMachines Reponse:::" + event);
+  }
   ngOnInit() {
 
     this.service.getMachines(this.commonData.merchantId).subscribe((resp: any) => {

@@ -141,6 +141,11 @@ export const routes: Routes = [
         loadChildren: () =>
           import('./views/machinetransactions/transactions.module').then((m) => m.TransactionsModule),
        },
+       {
+        path: 'forgotPassword',
+        loadChildren: () =>
+          import('./views/forgotPassword/forgotPassword.module').then((m) => m.ForgotPasswordModule),
+       },
       // {
       //   path: 'tables',
       //   loadChildren: () =>

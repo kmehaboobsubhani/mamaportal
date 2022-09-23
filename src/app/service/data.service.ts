@@ -16,7 +16,7 @@ export class DataService {
 
   url = environment.url;
 
-  urlc = environment.urlC;
+  urlc = environment.urlc;
   error: any;
 
   constructor(private http: HttpClient) { }
@@ -31,6 +31,15 @@ export class DataService {
    login(user): Observable<any> {
     console.log("Connecting..."+this.url + '/login')
     return this.http.post(this.url + '/login', JSON.stringify(user), this.httpOptions)
+    .pipe(
+      retry(1),
+      catchError(this.handleError)
+    )
+  }
+
+  forgotPassword(user): Observable<any> {
+    console.log("Connecting..."+this.url + '/consumer/generateOtp')
+    return this.http.post(this.url + '/consumer/generateOtp', JSON.stringify(user), this.httpOptions)
     .pipe(
       retry(1),
       catchError(this.handleError)
@@ -56,8 +65,8 @@ export class DataService {
   }
 
   AddItems(business): Observable<any> {
-    console.log("add Items Connecting..."+ 'http://vmdemo.hfsgroup.in:8080/hfs_vm/customer/addOrUpdateItem')
-    return this.http.post('http://vmdemo.hfsgroup.in:8080/hfs_vm/customer/addOrUpdateItem', JSON.stringify(business), this.httpOptions)
+    console.log("add Items Connecting..."+ this.urlc +'/customer/addOrUpdateItem')
+    return this.http.post(this.urlc +'/addOrUpdateItem', JSON.stringify(business), this.httpOptions)
     .pipe(
       retry(1),
       catchError(this.handleError)

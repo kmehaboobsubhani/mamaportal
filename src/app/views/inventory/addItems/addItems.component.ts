@@ -41,6 +41,7 @@
   export class AddItemsComponent implements OnDestroy, OnInit {
     addItems:any = {};
     entryForm: FormGroup;
+    showErrorMessage=false;
     private _setTab: number;
     get setTab() {
       return this._setTab;
@@ -131,28 +132,25 @@
   
     onValidate() {
       this.submitted = true;
-  
-      // stop here if form is invalid
       return this.simpleForm.status === 'VALID';
     }
   
     onAddItems(addItems : AddItems){
+      this.showErrorMessage = false;
       debugger;
+      addItems.merchantId = this.commonData.merchantId;
       this.service.AddItems(addItems).subscribe((resp: any) => {
         console.log("login Reponse:::" + JSON.stringify(resp));
-        if(resp && resp.statusCode == 200) {
-            console.log("Sucess")
-            alert('SUCCESS!');
-        }    
+        if(resp && resp.status == 200) {
+          this.showErrorMessage = true;
+      }       
       });
     }
   
     onSubmit() {
       debugger;
-      //console.warn(this.onValidate(), this.simpleForm.value);
       if (this.onValidate()) {
-        console.warn(this.simpleForm.value);
-        alert('SUCCESS!');
+        this.showErrorMessage = true;
       }
     }
   }
